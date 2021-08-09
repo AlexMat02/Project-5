@@ -1,0 +1,26 @@
+.main-orderpage{
+    &--title{
+        text-align: center;
+    margin: 5px;
+    }
+    &--pricetext{
+        @include flex-row;
+        margin-left: auto;
+        margin-right: auto;
+        width: 370px;
+    }
+    &--price{
+        margin-left: 5px;
+    }
+    &-orderid{
+        @include flex-row;
+        margin-left: auto;
+        margin-right: auto;
+        width: 105px;
+    }
+    &-id{
+        margin-left: 5px;
+    }
+}
+    
+    

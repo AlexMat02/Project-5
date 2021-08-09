@@ -1,0 +1,13 @@
+.btn{
+    border: black solid 3px;
+    border-radius: 8px;
+    background-color: darkorange;
+    &--center{
+        display: block;
+    margin-right: auto;
+    margin-left: auto;
+    }
+    &:active{
+        background-color: darken($color: darkorange, $amount: 10);
+    }
+}

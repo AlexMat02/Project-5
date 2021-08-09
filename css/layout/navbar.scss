@@ -1,0 +1,17 @@
+nav{
+    background-color: $darkerorange;
+    padding: 10px;
+    text-align: center;
+    border: 3px black solid;
+    border-top-style: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.nav_logo{
+    margin-left: 5px;
+}
+
+.nav-title{
+    margin-left: 20px;
+}

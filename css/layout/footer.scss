@@ -1,0 +1,18 @@
+footer{
+    background-color: $orangecolor;
+    border: 3px black solid;
+}
+
+.footer_container{
+    text-align: center;
+    color: black;
+    &--social{
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        &-text{
+            margin-right: 5px;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+@import "./utils/variables.scss";
+@import "./utils/mixins.scss";
+
+@import "./base/base.scss";
+
+@import "./layout/footer.scss";
+@import "./layout/navbar.scss";
+@import "./layout/button.scss";
+
+@import "./page/index-teddybear.scss";
+@import "./page/cartpage.scss";
+@import "./page/orderconfirmationpage.scss"

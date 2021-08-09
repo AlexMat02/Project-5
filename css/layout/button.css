@@ -1,0 +1,16 @@
+.btn {
+  border: black solid 3px;
+  border-radius: 8px;
+  background-color: darkorange;
+}
+
+.btn--center {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.btn:active {
+  background-color: #cc7000;
+}
+/*# sourceMappingURL=button.css.map */
