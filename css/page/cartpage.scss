@@ -21,7 +21,6 @@
     &--img{
         height: 250px;
         margin: 5px;
-        margin-bottom: 0px;
     }
     &-info, .product-card-cartpage-number{
         @include flex-row;

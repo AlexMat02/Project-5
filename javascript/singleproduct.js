@@ -27,17 +27,34 @@ class cartItem{
     }
 };
 
+//     let teddybearData_serialized = JSON.stringify(teddybearData);
+//     localStorage.setItem("backendData", teddybearData_serialized);
+//     let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
+
 const addButtonNorbert = document.getElementById("addButtonNorbert");
 let numberProduct = document.getElementById("inputRequired");
+let list_CartItems;
+
+if (typeof(list_CartItems) !== undefined) {
+    window.list_CartItems = [];
+    console.log('a');
+} 
 
 // This creates an object, if it already exists it just adds the number
 addButtonNorbert.addEventListener("click", () => {
     if (cartItems === "") {
-        cartItems = new cartItem(teddybearData_deserialized[0].name, Number(numberProduct.value), teddybearData_deserialized[0].price, teddybearData_deserialized[0].imageUrl);
+        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl);
         console.log(cartItems)
+        window.list_CartItems.push(cartItems);
+        console.log(window.list_CartItems);
+        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
+        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
     } else {
         cartItems.numberOfItem += Number(numberProduct.value);
-        console.log(cartItems)
+        console.log(cartItems);
+        console.log(window.list_CartItems);
+        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
+        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
     } 
 });
 
@@ -50,8 +67,14 @@ removeButtonNorbert.addEventListener("click", () => {
     } else if (cartItems.numberOfItem > 0 && numberProduct.value <= cartItems.numberOfItem) {
         cartItems.numberOfItem -= Number(numberProduct.value);
         console.log(cartItems)
+        console.log(window.list_CartItems);
+        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
+        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
     } else if (numberProduct.value >= cartItems.numberOfItem) {
         cartItems.numberOfItem = 0;
         console.log(cartItems)
+        console.log(window.list_CartItems);
+        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
+        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
     }
 })
