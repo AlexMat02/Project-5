@@ -23,43 +23,27 @@
                 <i class="fas fa-shopping-cart fa-5x"></i>
                 <h2 class="main-cartpage-title--header">Your Cart</h2>
             </div>
-            <div class="product-card-cartpage">
-                <div>
-                    <img src="/images/teddy_1.jpg" class="product-card-cartpage--img">
-                </div>
-                <div class="product-card-cartpage-info">
-                    <p class="product-card-cartpage-info--style">Product Name</p>
-                    <p class="product-card-cartpage-info--style">Price</p>
-                </div>
-                <div class="product-card-cartpage-number">
-                    <button class="product-card-cartpage-number--style btn">Add</button>
-                    <input>
-                    <button class="product-card-cartpage-number--style btn">Remove</button>
-                </div>
-            </div>
-            <div>
-                <h2 class="product-card-cartpage-totalprice">Total Price Y</h2>
-            </div>
+            <div id="divCartList"></div>
             <div class="form">
                 <div class="form--center form--margin">
                     <p>First Name</p>
-                    <input id="firstName">
+                    <input id="firstName" required>
                 </div>
                 <div class="form--center form--margin">
                     <p>Family Name</p>
-                    <input id="familyName">
+                    <input id="familyName" required>
                 </div>
                 <div class="form--center form--margin">
                     <p>Address</p>
-                    <input id="address">
+                    <input id="address" required>
                 </div>
                 <div class="form--center form--margin">
                     <p>City</p>
-                    <input id="city">
+                    <input id="city" required>
                 </div>
                 <div class="form--center form--margin">
                     <p>Email</p>
-                    <input id="email">
+                    <input type="email" id="email" name="email" required>
                 </div>
             </div>
             <button id="submit" class="btn btn--center">Order</button>

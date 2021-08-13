@@ -37,10 +37,10 @@ function cartItemListCreator () {
     pPrice.setAttribute("class", "product-card-cartpage-info--style");
     //This is creating the paragraph Number
     let pProductNumber = document.createElement("p");
-    pProductNumber.textContent = list_CartItems_deserialized[0].numberOfItem;
+    pProductNumber.textContent = "Number of Item " + list_CartItems_deserialized[0].numberOfItem;
     pProductNumber.setAttribute("class", "product-card-cartpage-info--style");
     //This is to get the elements into the html
-    let mainDiv = document.getElementById("jambon")
+    let mainDiv = document.getElementById("divCartList")
     mainDiv.appendChild(newDiv);
     newDiv.appendChild(imgCreator);
     newDiv.appendChild(divText);
@@ -53,7 +53,17 @@ function cartItemListCreator () {
     divAddRemove.appendChild(removeButton);
 };
 
-cartItemListCreator();
+if (list_CartItems_deserialized[0].numberOfItem > 0) {
+    cartItemListCreator();
+} else {
+    let emptyCartError = document.createElement("p");
+    emptyCartError.textContent = "Empty cart"
+    emptyCartError.style.textAlign = "center";
+    emptyCartError.style.margin = "5px";
+    let mainDiv = document.getElementById("divCartList")
+    mainDiv.appendChild(emptyCartError);
+    console.log("empty cart")
+}
 
 let formData = {
     firstName: "",
@@ -74,9 +84,13 @@ const submitButton = document.getElementById("submit");
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
 
 submitButton.addEventListener('click', () =>{
-    formData.firstName = firstNameVar.value;
-    formData.familyName = familyNameVar.value;
-    formData.address = addressVar.value;
-    formData.city = cityVar.value;
-    formData.email = emailVar.value;
+    if ( firstNameVar.value.length > 0 || familyNameVar.value.length > 0 || addressVar.value.length > 0 || cityVar.value.length > 0 || emailVar.value.length > 0) {
+        formData.firstName = firstNameVar.value;
+        formData.familyName = familyNameVar.value;
+        formData.address = addressVar.value;
+        formData.city = cityVar.value;
+        formData.email = emailVar.value;
+    } else {
+        console.log("Not filled")
+    }
 });

@@ -13,6 +13,7 @@ console.log(teddybearData_deserialized);
 const productIMG = document.getElementById("productIMG");
 const productName = document.getElementById("productName");
 const productPrice = document.getElementById("productPrice");
+const productNumber = document.getElementById("productNumber");
 
 productName.textContent = teddybearData_deserialized[productDisplay_deserialized].name;
 productPrice.textContent = teddybearData_deserialized[productDisplay_deserialized].price + '€';
@@ -49,12 +50,14 @@ addButtonNorbert.addEventListener("click", () => {
         console.log(window.list_CartItems);
         let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
         localStorage.setItem("listOfCartItems", list_CartItems_serialized);
+        productNumber.textContent = "Product Number " + cartItems.numberOfItem;
     } else {
         cartItems.numberOfItem += Number(numberProduct.value);
         console.log(cartItems);
         console.log(window.list_CartItems);
         let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
         localStorage.setItem("listOfCartItems", list_CartItems_serialized);
+        productNumber.textContent = "Product Number " + cartItems.numberOfItem;
     } 
 });
 
@@ -70,11 +73,13 @@ removeButtonNorbert.addEventListener("click", () => {
         console.log(window.list_CartItems);
         let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
         localStorage.setItem("listOfCartItems", list_CartItems_serialized);
+        productNumber.textContent = "Product Number " + cartItems.numberOfItem;
     } else if (numberProduct.value >= cartItems.numberOfItem) {
         cartItems.numberOfItem = 0;
         console.log(cartItems)
         console.log(window.list_CartItems);
         let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
         localStorage.setItem("listOfCartItems", list_CartItems_serialized);
+        productNumber.textContent = "Product Number " + cartItems.numberOfItem;
     }
 })
