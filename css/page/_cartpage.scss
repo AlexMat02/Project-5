@@ -1,0 +1,111 @@
+.main-cartpage{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    &-title{
+        @include flex-row;
+        margin-left: auto;
+        margin-right: auto;
+        width: 230px;
+        &--header{
+            align-self: center;
+        }
+    }
+}
+
+.product-card-cartpage{
+    @include flex-row;
+    justify-content: space-between;
+    background-color: $lighterorange;
+    border: 3px solid black;
+    margin: 5px;
+    &--img{
+        height: 250px;
+        margin: 5px;
+        object-fit: cover;
+    }
+    &-info {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto auto;
+        margin: 15px;
+    }
+    &-info{
+        align-self: center;
+        &--style{
+            margin: 5px;
+        }
+    }
+    &-number{
+        @include flex-row;
+        align-self: center;
+        &--style{
+            margin: 5px;
+        }
+    }
+    &-totalprice{
+        text-align: center;
+    }
+}
+
+#productSelect{
+    background-color: white;
+    border: solid black 2px;
+}
+
+#productDescription{
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    &--center{
+        align-self: center;
+    }
+    &--margin{
+        margin: 5px;
+    }
+}
+
+@media screen and (max-width: 1004px){
+    .product-card-cartpage {
+        flex-direction: column;
+        width: 85%;
+        margin-right: auto;
+        margin-left: auto;
+        min-width: 517px;
+        max-width: 518px;
+    } 
+    .product-card-cartpage--img {
+        max-width: 500px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .product-card-cartpage-number {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 592px){
+    .product-card-cartpage {
+        flex-direction: column;
+        width: 85%;
+        margin-right: auto;
+        margin-left: auto;
+        min-width: 100px;
+        max-width: 518px;
+    } 
+    .product-card-cartpage--img {
+        max-width: 500px;
+        margin-right: auto;
+        margin-left: auto;
+        width: 92%;
+    }
+    .product-card-cartpage-number {
+        margin-bottom: 10px;
+    }
+}

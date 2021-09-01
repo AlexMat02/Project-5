@@ -1,12 +1,12 @@
-@import "./utils/variables.scss";
-@import "./utils/mixins.scss";
+@import "./utils/_variables.scss";
+@import "./utils/_mixins.scss";
 
-@import "./base/base.scss";
+@import "./base/_base.scss";
 
-@import "./layout/footer.scss";
-@import "./layout/navbar.scss";
-@import "./layout/button.scss";
+@import "./layout/_footer.scss";
+@import "./layout/_navbar.scss";
+@import "./layout/_button.scss";
 
-@import "./page/index-teddybear.scss";
-@import "./page/cartpage.scss";
-@import "./page/orderconfirmationpage.scss"
+@import "./page/_index-teddybear.scss";
+@import "./page/_cartpage.scss"; 
+@import "./page/_orderconfirmationpage.scss";

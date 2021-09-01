@@ -12,10 +12,8 @@ fetch(urlBackend).then(response => response.json()).then(data => {
     }
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized);
-    let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
+    // To use backend data copy/paste this line -> let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
 });
-
-console.log("woooden stuff")
 
 let productDisplay = 0;
 
