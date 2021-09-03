@@ -1,4 +1,4 @@
-let cartItems = "";
+let cartItems;
 
 // This enables to make the singleproductpage responsive depending on which card the user clicked
 let productDisplay_deserialized = JSON.parse(localStorage.getItem("productDisplayer"));
@@ -15,7 +15,6 @@ const productNumber = document.getElementById("productNumber");
 const productDescription = document.getElementById("productDescription");
 const productColor = document.getElementById("productColor");
 const productSelect = document.getElementById("productSelect");
-console.log(teddybearData_deserialized[productDisplay_deserialized].colors.length);
 
 // This is to turn the string that is stocked inside the array into a number 
 let priceNumber = parseFloat(teddybearData_deserialized[productDisplay_deserialized].price);
@@ -49,36 +48,39 @@ class cartItem{
 
 const addButtonNorbert = document.getElementById("addButtonNorbert");
 let numberProduct = document.getElementById("inputRequired");
-let list_CartItems;
-let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
-console.log(window.list_CartItems);
+//let teddybearData_serialized = JSON.stringify(teddybearData);
+//localStorage.setItem("backendData", teddybearData_serialized);
+//let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
+let list_CartItems = [];
+let list_CartItems_serialized = JSON.stringify(list_CartItems);
+//localStorage.setItem("listOfCartItems", list_CartItems_serialized);
+//let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(list_CartItems);
-console.log(list_CartItems_deserialized);
+console.log(JSON.stringify(localStorage.getItem("listOfCartItems")));
+//console.log(list_CartItems_deserialized);
 
-if (typeof(list_CartItems_deserialized) !== undefined) {
-    window.list_CartItems = [];
-    let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
-    localStorage.setItem("listOfCartItems", list_CartItems_serialized); 
-    console.log(window.list_CartItems);
-} 
-console.log(window.list_CartItems);
+// I need to figure out if i should keep this part of the code
+//if (typeof(list_CartItems_deserialized) !== undefined) {
+//    list_CartItems = ["empty"];
+//  console.log(list_CartItems)
+// let list_CartItems_serialized = JSON.stringify(list_CartItems);
+// localStorage.setItem("listOfCartItems", list_CartItems_serialized); 
+//} 
 
 // This creates an object, if it already exists it just adds the number
 addButtonNorbert.addEventListener("click", () => {
-    if (cartItems === "") {
+    if (cartItems == undefined) {
         cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
-        console.log(cartItems)
-        window.list_CartItems.push(cartItems);
-        console.log(window.list_CartItems);
+        list_CartItems.push(cartItems);
+        localStorage.setItem('listOfCartItems', JSON.stringify(list_CartItems)); 
+        console.log(cartItems);
+        console.log(list_CartItems);
         productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
-        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
-        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
+        console.log(JSON.stringify(localStorage.getItem("listOfCartItems")));
     } else {
         cartItems.numberOfItem += Number(numberProduct.value);
         console.log(cartItems);
-        console.log(window.list_CartItems);
-        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
-        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
+        console.log(list_CartItems);
         productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
     } 
 });
@@ -99,9 +101,9 @@ removeButtonNorbert.addEventListener("click", () => {
     } else if (numberProduct.value >= cartItems.numberOfItem) {
         cartItems.numberOfItem = 0;
         console.log(cartItems)
-        console.log(window.list_CartItems);
+        console.log(list_CartItems);
         let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
         localStorage.setItem("listOfCartItems", list_CartItems_serialized);
         productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
     }
-})
+});

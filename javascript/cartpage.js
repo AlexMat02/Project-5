@@ -1,4 +1,3 @@
-// This is the code for the form -> Handle form info
 let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(list_CartItems_deserialized);
 
@@ -40,7 +39,7 @@ function cartItemListCreator () {
     pDropdownMenu.setAttribute("id", "productSelect");
     //This is creating the paragraph Price
     let pPrice = document.createElement("p");
-    pPrice.textContent = list_CartItems_deserialized[0].itemPrice + "€";
+    pPrice.textContent = (list_CartItems_deserialized[0].itemPrice / 100) + ".00 $";
     pPrice.setAttribute("class", "product-card-cartpage-info--style");
     //This is for creating the description
     let pDescription = document.createElement("p");
@@ -49,7 +48,7 @@ function cartItemListCreator () {
     pDescription.setAttribute("id", "productDescription");
     //This is creating the paragraph Number
     let pProductNumber = document.createElement("p");
-    pProductNumber.textContent = "Number of Item " + list_CartItems_deserialized[0].numberOfItem;
+    pProductNumber.textContent = "Number of Item : " + list_CartItems_deserialized[0].numberOfItem;
     pProductNumber.setAttribute("class", "product-card-cartpage-info--style");
     //This is to get the elements into the html
     let mainDiv = document.getElementById("divCartList")

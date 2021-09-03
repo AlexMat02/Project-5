@@ -1,5 +1,8 @@
 let urlBackend = 'http://127.0.0.1:3000/api/teddies';
-window.teddybearData = "";
+let teddybearData = "";
+
+let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
+console.log(list_CartItems_deserialized);
 
 fetch(urlBackend).then(response => response.json()).then(data => {
     console.log(data)
