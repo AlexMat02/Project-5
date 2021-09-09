@@ -1,12 +1,16 @@
-let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
-console.log(list_CartItems_deserialized);
+/* let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
+console.log(list_CartItems_deserialized); */
+
+
+let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
+console.log(listOfCartItems);
 
 // This two lines of code allows this javascript file to get the necessary data
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
 let productDisplay_deserialized = JSON.parse(localStorage.getItem("productDisplayer"));
 
 // This function creates a cart card
-function cartItemListCreator () {
+function cartItemListCreator (parameter) {
     //This is for creating a new div
     let newDiv = document.createElement('div');
     newDiv.setAttribute("class", "product-card-cartpage");
@@ -18,7 +22,7 @@ function cartItemListCreator () {
     divAddRemove.setAttribute("class", "product-card-cartpage-number")
     //This is for creating the img
     let imgCreator = document.createElement("img");
-    imgCreator.src = list_CartItems_deserialized[0].itemUrl;
+    imgCreator.src = listOfCartItems[parameter].itemUrl;
     imgCreator.setAttribute("class", "product-card-cartpage--img")
     //This is for creating the addbutton
     let buttonCreator = document.createElement("button");
@@ -32,23 +36,23 @@ function cartItemListCreator () {
     let input = document.createElement("input");
     //This is the creating the paragraph Product Name
     let pCreator = document.createElement("p");
-    pCreator.textContent = list_CartItems_deserialized[0].itemName;
+    pCreator.textContent = listOfCartItems[parameter].itemName;
     pCreator.setAttribute("class", "product-card-cartpage-info--style");
     //This is creating the dropdown menu
     let pDropdownMenu = document.createElement("select");
     pDropdownMenu.setAttribute("id", "productSelect");
     //This is creating the paragraph Price
     let pPrice = document.createElement("p");
-    pPrice.textContent = (list_CartItems_deserialized[0].itemPrice / 100) + ".00 $";
+    pPrice.textContent = (listOfCartItems[parameter].itemPrice / 100) + ".00 $";
     pPrice.setAttribute("class", "product-card-cartpage-info--style");
     //This is for creating the description
     let pDescription = document.createElement("p");
-    pDescription.textContent = list_CartItems_deserialized[0].itemDescription;
+    pDescription.textContent = listOfCartItems[parameter].itemDescription;
     pDescription.setAttribute("class", "product-card-cartpage-info--style");
     pDescription.setAttribute("id", "productDescription");
     //This is creating the paragraph Number
     let pProductNumber = document.createElement("p");
-    pProductNumber.textContent = "Number of Item : " + list_CartItems_deserialized[0].numberOfItem;
+    pProductNumber.textContent = "Number of Item : " + listOfCartItems[parameter].numberOfItem;
     pProductNumber.setAttribute("class", "product-card-cartpage-info--style");
     //This is to get the elements into the html
     let mainDiv = document.getElementById("divCartList")
@@ -75,8 +79,10 @@ function cartItemListCreator () {
 
 
 // Checks if the cart is empty
-if (list_CartItems_deserialized[0].numberOfItem > 0) {
-    cartItemListCreator();
+if (listOfCartItems.length > 0) {
+    for (let x = 0; x < listOfCartItems.length; x++) {
+    cartItemListCreator(x);
+    }
 } else {
     let emptyCartError = document.createElement("p");
     emptyCartError.textContent = "Empty cart"
