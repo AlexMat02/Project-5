@@ -1,8 +1,10 @@
 let urlBackend = 'http://127.0.0.1:3000/api/teddies';
 let teddybearData = "";
 
-let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
-console.log(list_CartItems_deserialized);
+let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
+console.log(listOfCartItems);
+//let list_CartItems_deserialized = localStorage.getItem("listOfCartItems");
+//console.log(list_CartItems_deserialized);
 
 fetch(urlBackend).then(response => response.json()).then(data => {
     console.log(data)
@@ -20,6 +22,7 @@ fetch(urlBackend).then(response => response.json()).then(data => {
 
 let productDisplay = 0;
 
+// Need to be replaced by a forEach loop and made more flexible
 for (i = 1; i <= 5; i++) {
     let currentTeddybear = document.getElementById('product' + i);
     {

@@ -5,6 +5,7 @@ let productDisplay_deserialized = JSON.parse(localStorage.getItem("productDispla
 
 // This enables to use teddybearData
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
+console.log(teddybearData_deserialized);
 
 // This is the part of the code for getting the correct html to change
 
@@ -25,7 +26,7 @@ productPrice.textContent = (priceNumber / 100) + '.00 $';
 productIMG.src = teddybearData_deserialized[productDisplay_deserialized].imageUrl;
 productDescription.textContent = teddybearData_deserialized[productDisplay_deserialized].description;
 // This is for the dropdown menu
-for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i -= 1) {
+for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
     let newLi = document.createElement("option")
     newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
     newLi.setAttribute("class", "product-card-cartpage-ul")
@@ -42,68 +43,69 @@ class cartItem{
     }
 };
 
-//     let teddybearData_serialized = JSON.stringify(teddybearData);
-//     localStorage.setItem("backendData", teddybearData_serialized);
-//     let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
-
-const addButtonNorbert = document.getElementById("addButtonNorbert");
+//localStorage.clear();
+const addButton = document.getElementById("addButton");
 let numberProduct = document.getElementById("inputRequired");
-//let teddybearData_serialized = JSON.stringify(teddybearData);
-//localStorage.setItem("backendData", teddybearData_serialized);
-//let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
-let list_CartItems = [];
-let list_CartItems_serialized = JSON.stringify(list_CartItems);
-//localStorage.setItem("listOfCartItems", list_CartItems_serialized);
-//let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
-console.log(list_CartItems);
-console.log(JSON.stringify(localStorage.getItem("listOfCartItems")));
-//console.log(list_CartItems_deserialized);
-
-// I need to figure out if i should keep this part of the code
-//if (typeof(list_CartItems_deserialized) !== undefined) {
-//    list_CartItems = ["empty"];
-//  console.log(list_CartItems)
-// let list_CartItems_serialized = JSON.stringify(list_CartItems);
-// localStorage.setItem("listOfCartItems", list_CartItems_serialized); 
-//} 
+let list_CartItems = localStorage.getItem("listOfCartItems");
+let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
 // This creates an object, if it already exists it just adds the number
-addButtonNorbert.addEventListener("click", () => {
-    if (cartItems == undefined) {
+// Need to add a check if input is empty
+addButton.addEventListener("click", () => {
+    if (listOfCartItems == 'null' || listOfCartItems == null) {
+        console.log("listOfCartItems == null");
+        listOfCartItems = [];
         cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
-        list_CartItems.push(cartItems);
-        localStorage.setItem('listOfCartItems', JSON.stringify(list_CartItems)); 
-        console.log(cartItems);
-        console.log(list_CartItems);
+        listOfCartItems.push(cartItems);
+        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+        console.log(listOfCartItems);
+        console.log(listOfCartItems.length);
         productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
-        console.log(JSON.stringify(localStorage.getItem("listOfCartItems")));
     } else {
-        cartItems.numberOfItem += Number(numberProduct.value);
-        console.log(cartItems);
-        console.log(list_CartItems);
-        productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
+        console.log("listOfCartItems !== null");
+        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
+        //if statement to check if the cartItems is already created, if so, just change the numberOfItem
+        // Checks in listOfCartItems if cartItems already exists, then if it doesn't push it in
+         for (let i = 0; i < listOfCartItems.length ; i++) {
+            if (listOfCartItems[i].itemName == cartItems.itemName)  {
+                console.log("found");
+                console.log(i);
+                listOfCartItems[i].numberOfItem += cartItems.numberOfItem;
+                productNumber.textContent = "Product Number : " + listOfCartItems[i].numberOfItem;
+                localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                console.log(listOfCartItems);
+                break;
+            } else if (i == (listOfCartItems.length - 1)){
+                console.log("not found");
+                listOfCartItems.push(cartItems);
+                localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                productNumber.textContent = "Product Number : " + listOfCartItems[i].numberOfItem;
+                console.log(listOfCartItems);
+                console.log(listOfCartItems.length);
+                break;
+            } else {
+                console.log("truly not found");
+                console.log(i);
+            }
+        }  
     } 
 });
 
-const removeButtonNorbert = document.getElementById("removeButtonNorbert");
+const removeButton = document.getElementById("removeButton");
 
 // This removes a number of cartItems.numberOfItem from user input
-removeButtonNorbert.addEventListener("click", () => {
+/* removeButton.addEventListener("click", () => {
     if (!cartItems) {
         console.log("cartItems is not yet created")
     } else if (cartItems.numberOfItem > 0 && numberProduct.value <= cartItems.numberOfItem) {
         cartItems.numberOfItem -= Number(numberProduct.value);
         console.log(cartItems)
         console.log(window.list_CartItems);
-        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
-        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
         productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
     } else if (numberProduct.value >= cartItems.numberOfItem) {
         cartItems.numberOfItem = 0;
         console.log(cartItems)
         console.log(list_CartItems);
-        let list_CartItems_serialized = JSON.stringify(window.list_CartItems);
-        localStorage.setItem("listOfCartItems", list_CartItems_serialized);
         productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
     }
-});
+}); */

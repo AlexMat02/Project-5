@@ -60,7 +60,7 @@ function cartItemListCreator () {
     divText.appendChild(pProductNumber);
     //This part is to create the dropdown menu, same code has been used in the singleproduct.js
     divText.appendChild(pDropdownMenu);
-    for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i -= 1) {
+    for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
         let newLi = document.createElement("option")
         newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
         newLi.setAttribute("class", "product-card-cartpage-ul")
