@@ -33,6 +33,8 @@ for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.leng
     productSelect.appendChild(newLi);
 };
 
+//if teddybearData_deserialized[productDisplay_deserialized].itemName == listOfCartItems[x].itemName;
+//  productNumber.textContent = "Product Number : " + listOfCartItems.numberOfItem;
 class cartItem{
     constructor(itemName, numberOfItem, itemPrice, itemUrl, itemDescription) {
         this.itemName = itemName;
@@ -48,6 +50,17 @@ const addButton = document.getElementById("addButton");
 let numberProduct = document.getElementById("inputRequired");
 let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
+
+console.log(teddybearData_deserialized[productDisplay_deserialized].name);
+//console.log(listOfCartItems);
+if (listOfCartItems !== 'null' || listOfCartItems !== null) {
+    for (let y = 0; y < listOfCartItems.length ; y++){
+        let voila = teddybearData_deserialized[productDisplay_deserialized].name;
+        if (listOfCartItems[y].itemName == voila) {
+            productNumber.textContent = "Product Number : " + listOfCartItems[y].numberOfItem;
+        }
+    }
+};
 
 // This creates an object, if it already exists it just adds the number
 // Need to add a check if input is empty
