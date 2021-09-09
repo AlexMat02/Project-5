@@ -107,18 +107,27 @@ addButton.addEventListener("click", () => {
 const removeButton = document.getElementById("removeButton");
 
 // This removes a number of cartItems.numberOfItem from user input
-/* removeButton.addEventListener("click", () => {
-    if (!cartItems) {
-        console.log("cartItems is not yet created")
-    } else if (cartItems.numberOfItem > 0 && numberProduct.value <= cartItems.numberOfItem) {
-        cartItems.numberOfItem -= Number(numberProduct.value);
-        console.log(cartItems)
-        console.log(window.list_CartItems);
-        productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
-    } else if (numberProduct.value >= cartItems.numberOfItem) {
-        cartItems.numberOfItem = 0;
-        console.log(cartItems)
-        console.log(list_CartItems);
-        productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
-    }
-}); */
+removeButton.addEventListener("click", () => {
+    if (listOfCartItems !== 'null' || listOfCartItems !== null) {
+        for (let y = 0; y < listOfCartItems.length ; y++){
+            let voila = teddybearData_deserialized[productDisplay_deserialized].name;
+            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
+            if (listOfCartItems[y].itemName == voila) {
+                listOfCartItems[y].numberOfItem -= cartItems.numberOfItem;
+                if (listOfCartItems[y].numberOfItem <= 0) {
+                    listOfCartItems[y].numberOfItem = 0;
+                    productNumber.textContent = "Product Number : " + listOfCartItems[y].numberOfItem;
+                    console.log(listOfCartItems);
+                    listOfCartItems.splice(y, 1);
+                    console.log(listOfCartItems);
+                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                } else {
+                    console.log("not 0");
+                    console.log(listOfCartItems);
+                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                    productNumber.textContent = "Product Number : " + listOfCartItems[y].numberOfItem;
+                }
+            }
+        }
+    };
+});
