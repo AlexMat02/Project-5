@@ -52,7 +52,7 @@ function cartItemListCreator (parameter) {
     pDescription.setAttribute("id", "productDescription");
     //This is creating the paragraph Number
     let pProductNumber = document.createElement("p");
-    pProductNumber.textContent = "Number of Item : " + listOfCartItems[parameter].numberOfItem;
+    pProductNumber.textContent = "Quantity : " + listOfCartItems[parameter].numberOfItem;
     pProductNumber.setAttribute("class", "product-card-cartpage-info--style");
     //This is to get the elements into the html
     let mainDiv = document.getElementById("divCartList")
@@ -76,13 +76,20 @@ function cartItemListCreator (parameter) {
     divAddRemove.appendChild(input);
     divAddRemove.appendChild(removeButton);
 };
-
-
+let w = 0;
+let divCartList = document.getElementById("divCartList");
+let totalCartPrice = document.createElement("p");
 // Checks if the cart is empty
 if (listOfCartItems.length > 0) {
     for (let x = 0; x < listOfCartItems.length; x++) {
     cartItemListCreator(x);
+    w = w + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+    console.log(w);
+    totalCartPrice.textContent = "Total Price : " + w + ".00 $";
     }
+    totalCartPrice.style.textAlign = "center";
+    totalCartPrice.style.margin = "5px";
+    divCartList.appendChild(totalCartPrice);
 } else {
     let emptyCartError = document.createElement("p");
     emptyCartError.textContent = "Empty cart"
