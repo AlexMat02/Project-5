@@ -63,12 +63,13 @@ function cartItemListCreator (parameter) {
     divText.appendChild(pPrice);
     divText.appendChild(pProductNumber);
     //This part is to create the dropdown menu, same code has been used in the singleproduct.js
+    // This part is not correctly working
     divText.appendChild(pDropdownMenu);
     for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
         let newLi = document.createElement("option")
         newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
         newLi.setAttribute("class", "product-card-cartpage-ul")
-        productSelect.appendChild(newLi);
+        pDropdownMenu.appendChild(newLi);
     };
     divText.appendChild(pDescription);
     newDiv.appendChild(divAddRemove);
@@ -76,20 +77,29 @@ function cartItemListCreator (parameter) {
     divAddRemove.appendChild(input);
     divAddRemove.appendChild(removeButton);
 };
-let w = 0;
+
+let totalPrice = 0;
 let divCartList = document.getElementById("divCartList");
 let totalCartPrice = document.createElement("p");
 // Checks if the cart is empty
 if (listOfCartItems.length > 0) {
     for (let x = 0; x < listOfCartItems.length; x++) {
     cartItemListCreator(x);
-    w = w + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
-    console.log(w);
-    totalCartPrice.textContent = "Total Price : " + w + ".00 $";
-    }
+    totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+    console.log(totalPrice);
+    totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+    };
     totalCartPrice.style.textAlign = "center";
     totalCartPrice.style.margin = "5px";
     divCartList.appendChild(totalCartPrice);
+    let className = document.getElementsByClassName("product-card-cartpage-number--style");
+    function myFunction(n) {
+        console.log("found")
+        console.log(n);
+    };
+    for (let m = 0; m < className.length; m++) {
+        className[m].addEventListener('click', myFunction);
+    };
 } else {
     let emptyCartError = document.createElement("p");
     emptyCartError.textContent = "Empty cart"

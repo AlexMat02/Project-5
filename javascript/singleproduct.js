@@ -33,15 +33,25 @@ for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.leng
     productSelect.appendChild(newLi);
 };
 
-//if teddybearData_deserialized[productDisplay_deserialized].itemName == listOfCartItems[x].itemName;
-//  productNumber.textContent = "Product Number : " + listOfCartItems.numberOfItem;
+let colorMenu = document.getElementById("productSelect");
+/* colorMenu.onclick = function(){MYFUNCTION()};
+// Don't need a function just need to do put into the constructor and be like
+// var colorChoosed = colorMenu.options[colorMenu.selectedIndex].text;
+// this.itemColor = colorChoosed
+function MYFUNCTION() {
+    var colorChoosed = colorMenu.options[colorMenu.selectedIndex].text;
+    console.log(colorChoosed);
+}; */
+
+
 class cartItem{
-    constructor(itemName, numberOfItem, itemPrice, itemUrl, itemDescription) {
+    constructor(itemName, numberOfItem, itemPrice, itemUrl, itemDescription, itemColor) {
         this.itemName = itemName;
         this.numberOfItem = numberOfItem;
         this.itemPrice = itemPrice;
         this.itemUrl = itemUrl;
         this.itemDescription = itemDescription
+        this.itemColor = itemColor
     }
 };
 
@@ -52,7 +62,6 @@ let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
 console.log(teddybearData_deserialized[productDisplay_deserialized].name);
-//console.log(listOfCartItems);
 if (listOfCartItems !== 'null' || listOfCartItems !== null) {
     for (let y = 0; y < listOfCartItems.length ; y++){
         let voila = teddybearData_deserialized[productDisplay_deserialized].name;
@@ -68,7 +77,7 @@ addButton.addEventListener("click", () => {
     if (listOfCartItems == 'null' || listOfCartItems == null) {
         console.log("listOfCartItems == null");
         listOfCartItems = [];
-        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
+        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description,colorMenu.options[colorMenu.selectedIndex].text );
         listOfCartItems.push(cartItems);
         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
         console.log(listOfCartItems);
@@ -76,7 +85,7 @@ addButton.addEventListener("click", () => {
         productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
     } else {
         console.log("listOfCartItems !== null");
-        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
+        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description, colorMenu.options[colorMenu.selectedIndex].text);
         //if statement to check if the cartItems is already created, if so, just change the numberOfItem
         // Checks in listOfCartItems if cartItems already exists, then if it doesn't push it in
          for (let i = 0; i < listOfCartItems.length ; i++) {
