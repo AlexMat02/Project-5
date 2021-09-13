@@ -61,6 +61,8 @@ let numberProduct = document.getElementById("inputRequired");
 let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
+
+// rename variable voila
 console.log(teddybearData_deserialized[productDisplay_deserialized].name);
 if (listOfCartItems !== 'null' || listOfCartItems !== null) {
     for (let y = 0; y < listOfCartItems.length ; y++){
