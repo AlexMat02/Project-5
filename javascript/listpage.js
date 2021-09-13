@@ -9,9 +9,8 @@ console.log(listOfCartItems);
 fetch(urlBackend).then(response => response.json()).then(data => {
     console.log(data)
     teddybearData = data
-    console.log(teddybearData[0])
     // This loop is for setting up the list page with the correct names and images.
-    for (let teddybearTitle = 0; teddybearTitle < 5; teddybearTitle++) {
+    for (let teddybearTitle = 0; teddybearTitle < teddybearData.length; teddybearTitle++) {
         document.getElementsByClassName('container_teddybear--text')[teddybearTitle].textContent = teddybearData[teddybearTitle].name;
         document.getElementsByClassName('container_teddybear--img')[teddybearTitle].src = teddybearData[teddybearTitle].imageUrl;
     }
@@ -20,10 +19,11 @@ fetch(urlBackend).then(response => response.json()).then(data => {
     // To use backend data copy/paste this line -> let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
 });
 
+let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"))
 let productDisplay = 0;
 
 // Need to be replaced by a forEach loop and made more flexible
-for (i = 1; i <= 5; i++) {
+for (i = 1; i <= teddybearData_deserialized.length; i++) {
     let currentTeddybear = document.getElementById('product' + i);
     {
         // This is to create another scope to make the j variable local since i is global
