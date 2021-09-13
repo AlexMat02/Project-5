@@ -68,7 +68,7 @@ if (listOfCartItems !== 'null' || listOfCartItems !== null) {
     for (let y = 0; y < listOfCartItems.length ; y++){
         let voila = teddybearData_deserialized[productDisplay_deserialized].name;
         if (listOfCartItems[y].itemName == voila) {
-            productNumber.textContent = "Product Number : " + listOfCartItems[y].numberOfItem;
+            productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
         }
     }
 };
@@ -84,7 +84,7 @@ addButton.addEventListener("click", () => {
         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
         console.log(listOfCartItems);
         console.log(listOfCartItems.length);
-        productNumber.textContent = "Product Number : " + cartItems.numberOfItem;
+        productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
     } else {
         console.log("listOfCartItems !== null");
         cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description, colorMenu.options[colorMenu.selectedIndex].text);
@@ -95,7 +95,7 @@ addButton.addEventListener("click", () => {
                 console.log("found");
                 console.log(i);
                 listOfCartItems[i].numberOfItem += cartItems.numberOfItem;
-                productNumber.textContent = "Product Number : " + listOfCartItems[i].numberOfItem;
+                productNumber.textContent = "Quantity : " + listOfCartItems[i].numberOfItem;
                 localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                 console.log(listOfCartItems);
                 break;
@@ -103,7 +103,10 @@ addButton.addEventListener("click", () => {
                 console.log("not found");
                 listOfCartItems.push(cartItems);
                 localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                productNumber.textContent = "Product Number : " + listOfCartItems[i].numberOfItem;
+                console.log("w");
+                console.log(cartItems.numberOfItem);
+                console.log("w");
+                productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
                 console.log(listOfCartItems);
                 console.log(listOfCartItems.length);
                 break;
@@ -127,7 +130,7 @@ removeButton.addEventListener("click", () => {
                 listOfCartItems[y].numberOfItem -= cartItems.numberOfItem;
                 if (listOfCartItems[y].numberOfItem <= 0) {
                     listOfCartItems[y].numberOfItem = 0;
-                    productNumber.textContent = "Product Number : " + listOfCartItems[y].numberOfItem;
+                    productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
                     console.log(listOfCartItems);
                     listOfCartItems.splice(y, 1);
                     console.log(listOfCartItems);
@@ -136,7 +139,7 @@ removeButton.addEventListener("click", () => {
                     console.log("not 0");
                     console.log(listOfCartItems);
                     localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                    productNumber.textContent = "Product Number : " + listOfCartItems[y].numberOfItem;
+                    productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
                 }
             }
         }
