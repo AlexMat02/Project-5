@@ -1,7 +1,6 @@
 /* let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(list_CartItems_deserialized); */
 
-
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(listOfCartItems);
 
@@ -63,30 +62,29 @@ function cartItemListCreator (parameter) {
     divText.appendChild(pPrice);
     divText.appendChild(pProductNumber);
     // Define var for creating the dropdown menu
-    // Rename variables
-    let testStockName = listOfCartItems[parameter].itemName;
-    let testColorHolder;
-    let testWaiter = 0;
+    let stockName = listOfCartItems[parameter].itemName;
+    let colorHolder;
+    let waiter = 0;
     // Create the dropdown menu
     for (let w = (teddybearData_deserialized.length - 1); w >= 0; w--) {
-        if (testStockName == teddybearData_deserialized[w].name) {
-            testColorHolder = teddybearData_deserialized[w].colors;
+        if (stockName == teddybearData_deserialized[w].name) {
+            colorHolder = teddybearData_deserialized[w].colors;
             divText.appendChild(pDropdownMenu);
             // Make the user's color go first into the array so that it is correctly display on the html
-            for (let i = testColorHolder.length; i != 0; i--) {
-                if (testColorHolder[i - 1] == listOfCartItems[parameter].itemColor) {
-                    testColorHolder.splice(i - 1, 1);
-                    testColorHolder.push(listOfCartItems[parameter].itemColor);
-                    testWaiter += 1;
+            for (let i = colorHolder.length; i != 0; i--) {
+                if (colorHolder[i - 1] == listOfCartItems[parameter].itemColor) {
+                    colorHolder.splice(i - 1, 1);
+                    colorHolder.push(listOfCartItems[parameter].itemColor);
+                    waiter += 1;
                 };
-                if (testWaiter >= 1) {
-                    for (let i = testColorHolder.length; i != 0; i--) {
+                if (waiter >= 1) {
+                    for (let i = colorHolder.length; i != 0; i--) {
                         let newLi = document.createElement("option");
-                        newLi.textContent = testColorHolder[i - 1];
+                        newLi.textContent = colorHolder[i - 1];
                         newLi.setAttribute("class", "product-card-cartpage-ul");
                         pDropdownMenu.appendChild(newLi);
                     };
-                    testWaiter = 0;
+                    waiter = 0;
                 };
             };
             break;
@@ -116,9 +114,8 @@ if (listOfCartItems.length > 0) {
     totalCartPrice.style.margin = "5px";
     divCartList.appendChild(totalCartPrice);
     let className = document.getElementsByClassName("product-card-cartpage-number--style");
-    function myFunction(n) {
-        console.log("found")
-        console.log(n);
+    function myFunction() {
+        console.log("foundrRr");
     };
     for (let m = 0; m < className.length; m++) {
         className[m].addEventListener('click', myFunction);

@@ -34,15 +34,6 @@ for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.leng
 };
 
 let colorMenu = document.getElementById("productSelect");
-/* colorMenu.onclick = function(){MYFUNCTION()};
-// Don't need a function just need to do put into the constructor and be like
-// var colorChoosed = colorMenu.options[colorMenu.selectedIndex].text;
-// this.itemColor = colorChoosed
-function MYFUNCTION() {
-    var colorChoosed = colorMenu.options[colorMenu.selectedIndex].text;
-    console.log(colorChoosed);
-}; */
-
 
 class cartItem{
     constructor(itemName, numberOfItem, itemPrice, itemUrl, itemDescription, itemColor) {
@@ -61,13 +52,11 @@ let numberProduct = document.getElementById("inputRequired");
 let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
-
-// rename variable voila
 console.log(teddybearData_deserialized[productDisplay_deserialized].name);
 if (listOfCartItems !== 'null' || listOfCartItems !== null) {
     for (let y = 0; y < listOfCartItems.length ; y++){
-        let voila = teddybearData_deserialized[productDisplay_deserialized].name;
-        if (listOfCartItems[y].itemName == voila) {
+        let correctTeddybearName = teddybearData_deserialized[productDisplay_deserialized].name;
+        if (listOfCartItems[y].itemName == correctTeddybearName) {
             productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
         }
     }
@@ -122,9 +111,9 @@ const removeButton = document.getElementById("removeButton");
 removeButton.addEventListener("click", () => {
     if (listOfCartItems !== 'null' || listOfCartItems !== null) {
         for (let y = 0; y < listOfCartItems.length ; y++){
-            let voila = teddybearData_deserialized[productDisplay_deserialized].name;
+            let correctTeddybearName = teddybearData_deserialized[productDisplay_deserialized].name;
             cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
-            if (listOfCartItems[y].itemName == voila) {
+            if (listOfCartItems[y].itemName == correctTeddybearName) {
                 listOfCartItems[y].numberOfItem -= cartItems.numberOfItem;
                 if (listOfCartItems[y].numberOfItem <= 0) {
                     listOfCartItems[y].numberOfItem = 0;
