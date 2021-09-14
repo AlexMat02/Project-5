@@ -103,9 +103,7 @@ addButton.addEventListener("click", () => {
                 console.log("not found");
                 listOfCartItems.push(cartItems);
                 localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                console.log("w");
                 console.log(cartItems.numberOfItem);
-                console.log("w");
                 productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
                 console.log(listOfCartItems);
                 console.log(listOfCartItems.length);

@@ -62,21 +62,31 @@ function cartItemListCreator (parameter) {
     divText.appendChild(pCreator);
     divText.appendChild(pPrice);
     divText.appendChild(pProductNumber);
-    // This part is to create the dropdown menu, same code has been used in the singleproduct.js
+    // Define var for creating the dropdown menu
+    // Rename variables
     let testStockName = listOfCartItems[parameter].itemName;
     let testColorHolder;
-    console.log(testStockName);
+    let testWaiter = 0;
+    // Create the dropdown menu
     for (let w = (teddybearData_deserialized.length - 1); w >= 0; w--) {
         if (testStockName == teddybearData_deserialized[w].name) {
             testColorHolder = teddybearData_deserialized[w].colors;
             divText.appendChild(pDropdownMenu);
-            for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
-                let newLi = document.createElement("option")
-                // This check if it's undefined, it is made to prevent having blank html option
-                if (teddybearData_deserialized[w].colors[i - 1] !== undefined) {
-                    newLi.textContent = teddybearData_deserialized[w].colors[i - 1];
-                newLi.setAttribute("class", "product-card-cartpage-ul")
-                pDropdownMenu.appendChild(newLi);
+            // Make the user's color go first into the array so that it is correctly display on the html
+            for (let i = testColorHolder.length; i != 0; i--) {
+                if (testColorHolder[i - 1] == listOfCartItems[parameter].itemColor) {
+                    testColorHolder.splice(i - 1, 1);
+                    testColorHolder.push(listOfCartItems[parameter].itemColor);
+                    testWaiter += 1;
+                };
+                if (testWaiter >= 1) {
+                    for (let i = testColorHolder.length; i != 0; i--) {
+                        let newLi = document.createElement("option");
+                        newLi.textContent = testColorHolder[i - 1];
+                        newLi.setAttribute("class", "product-card-cartpage-ul");
+                        pDropdownMenu.appendChild(newLi);
+                    };
+                    testWaiter = 0;
                 };
             };
             break;
