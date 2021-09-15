@@ -1,12 +1,13 @@
-/* let list_CartItems_deserialized = JSON.parse(localStorage.getItem("listOfCartItems"));
-console.log(list_CartItems_deserialized); */
-
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(listOfCartItems);
 
 // This two lines of code allows this javascript file to get the necessary data
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
 let productDisplay_deserialized = JSON.parse(localStorage.getItem("productDisplayer"));
+let oddCounterRemoveButton = 1;
+let evenCounterAddButton = 0;
+let buttonCounterArray = [];
+let inputCounterArray = [];
 
 // This function creates a cart card
 function cartItemListCreator (parameter) {
@@ -23,16 +24,84 @@ function cartItemListCreator (parameter) {
     let imgCreator = document.createElement("img");
     imgCreator.src = listOfCartItems[parameter].itemUrl;
     imgCreator.setAttribute("class", "product-card-cartpage--img")
+    //This is to create the input
+    let input = document.createElement("input");
+    input.setAttribute("id", 100 + parameter);
+    inputCounterArray.push(100 + parameter);
     //This is for creating the addbutton
     let buttonCreator = document.createElement("button");
     buttonCreator.setAttribute("class", "product-card-cartpage-number--style btn")
+    buttonCreator.setAttribute("id", evenCounterAddButton);
+    buttonCounterArray.push(evenCounterAddButton);
+    // When a buttonCreator is pressed, it gives its id so we know which button was pressed
+    buttonCreator.addEventListener("click", () =>  {
+        let currentIdButton = event.target.id;
+        console.log(currentIdButton);
+        let currentButton = document.getElementById(currentIdButton);
+        console.log(currentButton);
+        // This is to get the index for listOfItem
+        for (n = 0; n < buttonCounterArray.length; n++){
+            if (currentIdButton == buttonCounterArray[n]) {
+                let quantityArray = document.getElementsByClassName("quantity");
+                let currentUserInput = (inputCounterArray[n / 2] - 100);
+                let userInput = document.getElementById(currentUserInput + 100);
+                listOfCartItems[n / 2].numberOfItem += parseFloat(userInput.value);
+                localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                quantityArray[n / 2].textContent = "Quantity : " + listOfCartItems[n / 2].numberOfItem;
+                // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
+                totalPrice = 0;
+                // This is the loop to calculate the totalPrice and update the html
+                for (let x = 0; x < listOfCartItems.length; x++) {
+                    totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+                    totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+                };
+                // COLOR /!\
+                // INPUT MUST BE A NUMBER /!\
+            };
+        };
+    });
+    evenCounterAddButton += 2;
     buttonCreator.textContent = "Add";
     //This is to create the remove button
     let removeButton = document.createElement("button");
     removeButton.setAttribute("class", "product-card-cartpage-number--style btn")
+    removeButton.setAttribute("id", oddCounterRemoveButton);
+    buttonCounterArray.push(oddCounterRemoveButton);
+    removeButton.addEventListener("click", () => {
+        let currentIdButton = event.target.id;
+        console.log(currentIdButton);
+        let currentButton = document.getElementById(currentIdButton);
+        console.log(currentButton);
+        for (n = 0; n < buttonCounterArray.length; n++){
+            if (currentIdButton == buttonCounterArray[n]){
+                console.log(buttonCounterArray[n])
+                let quantityArray = document.getElementsByClassName("quantity");
+                let userInput = document.getElementById(((n + 1) / 2) - 1 + 100);
+                // The reason for (((n + 1) / 2) - 1) is because removeButton ids are odd, so n / 2 would 
+                // give a result like 0.5 or 1.5; To make the first result even we need to add 1 to n so (n + 1) / 2
+                // and to make the result of this operation odd so that i gives the correct index we remove 1
+                // This gives the correct index to modify;
+                if ( listOfCartItems[((n + 1) / 2) - 1].numberOfItem == 0 ) {
+                    console.log(listOfCartItems[((n + 1) / 2) - 1].numberOfItem);
+                    // Need to remove the item from the webpage, feelsBadMan
+                } else {
+                    listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value);
+                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                    quantityArray[((n + 1) / 2) - 1].textContent = "Quantity : " + listOfCartItems[((n + 1) / 2) - 1].numberOfItem;
+                    // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
+                    totalPrice = 0;
+                    // This is the loop to calculate the totalPrice and update the html
+                    for (let x = 0; x < listOfCartItems.length; x++) {
+                        totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+                        totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+                    };
+                    console.log(listOfCartItems[((n + 1) / 2) - 1]);
+                };
+            };
+        };
+    });
+    oddCounterRemoveButton += 2;
     removeButton.textContent = "Remove";
-    //This is to create the input
-    let input = document.createElement("input");
     //This is the creating the paragraph Product Name
     let pCreator = document.createElement("p");
     pCreator.textContent = listOfCartItems[parameter].itemName;
@@ -52,7 +121,7 @@ function cartItemListCreator (parameter) {
     //This is creating the paragraph Number
     let pProductNumber = document.createElement("p");
     pProductNumber.textContent = "Quantity : " + listOfCartItems[parameter].numberOfItem;
-    pProductNumber.setAttribute("class", "product-card-cartpage-info--style");
+    pProductNumber.setAttribute("class", "product-card-cartpage-info--style quantity");
     //This is to get the elements into the html
     let mainDiv = document.getElementById("divCartList")
     mainDiv.appendChild(newDiv);
@@ -77,6 +146,7 @@ function cartItemListCreator (parameter) {
                     colorHolder.push(listOfCartItems[parameter].itemColor);
                     waiter += 1;
                 };
+                // waiter is used to push the user's color first. It is used for order
                 if (waiter >= 1) {
                     for (let i = colorHolder.length; i != 0; i--) {
                         let newLi = document.createElement("option");
@@ -89,7 +159,7 @@ function cartItemListCreator (parameter) {
             };
             break;
         } else {
-            console.log("www not found");
+            console.log("name not found");
         }
     };
     divText.appendChild(pDescription);
@@ -103,7 +173,7 @@ let totalPrice = 0;
 let divCartList = document.getElementById("divCartList");
 let totalCartPrice = document.createElement("p");
 // Checks if the cart is empty
-if (listOfCartItems.length > 0) {
+if (listOfCartItems !== null) {
     for (let x = 0; x < listOfCartItems.length; x++) {
     cartItemListCreator(x);
     totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
@@ -113,13 +183,6 @@ if (listOfCartItems.length > 0) {
     totalCartPrice.style.textAlign = "center";
     totalCartPrice.style.margin = "5px";
     divCartList.appendChild(totalCartPrice);
-    let className = document.getElementsByClassName("product-card-cartpage-number--style");
-    function myFunction() {
-        console.log("foundrRr");
-    };
-    for (let m = 0; m < className.length; m++) {
-        className[m].addEventListener('click', myFunction);
-    };
 } else {
     let emptyCartError = document.createElement("p");
     emptyCartError.textContent = "Empty cart"
@@ -156,6 +219,7 @@ formErrorMsg.style.textAlign = "center";
 
 let formCounter = 0;
 
+// Need to review how it works, perhaps use a constructor
 submitButton.addEventListener('click', () =>{
     if ( firstNameVar.value.length > 0 || familyNameVar.value.length > 0 || addressVar.value.length > 0 || cityVar.value.length > 0 || emailVar.value.length > 0) {
         formData.firstName = firstNameVar.value;
@@ -176,3 +240,12 @@ submitButton.addEventListener('click', () =>{
         }
     }
 });
+
+/* CART PAGE PROBLEM IDEA ->
+GIVE EACH BUTTON AN ID
+EVEN FOR ADD
+ODD FOR REMOVE
+PUT ALL BUTTONS ID INTO ARRAY
+W = NUMBER OF CARD CREATED
+THEN ———————————————
+WHEN BUTTON CLICKED CHECK FOR ID; CHECK INDEX IN ARRAY OF BUTTON ID;  CHANGE THE CORRECT listOfItem */

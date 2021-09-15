@@ -25,7 +25,7 @@ productName.textContent = teddybearData_deserialized[productDisplay_deserialized
 productPrice.textContent = (priceNumber / 100) + '.00 $';
 productIMG.src = teddybearData_deserialized[productDisplay_deserialized].imageUrl;
 productDescription.textContent = teddybearData_deserialized[productDisplay_deserialized].description;
-// This is for the dropdown menu
+// This is for the dropdown menu <- Need work
 for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
     let newLi = document.createElement("option")
     newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
@@ -53,14 +53,17 @@ let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
 console.log(teddybearData_deserialized[productDisplay_deserialized].name);
-if (listOfCartItems !== 'null' || listOfCartItems !== null) {
+if (listOfCartItems !== null) {
+    console.log("listOfCartItems is not null");
     for (let y = 0; y < listOfCartItems.length ; y++){
         let correctTeddybearName = teddybearData_deserialized[productDisplay_deserialized].name;
         if (listOfCartItems[y].itemName == correctTeddybearName) {
             productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
         }
     }
-};
+} else {
+    console.log("listOfCartItems is null");
+}
 
 // This creates an object, if it already exists it just adds the number
 // Need to add a check if input is empty

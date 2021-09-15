@@ -3,8 +3,6 @@ let teddybearData = "";
 
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(listOfCartItems);
-//let list_CartItems_deserialized = localStorage.getItem("listOfCartItems");
-//console.log(list_CartItems_deserialized);
 
 fetch(urlBackend).then(response => response.json()).then(data => {
     console.log(data)
@@ -16,13 +14,11 @@ fetch(urlBackend).then(response => response.json()).then(data => {
     }
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized);
-    // To use backend data copy/paste this line -> let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
 });
 
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"))
 let productDisplay = 0;
 
-// Need to be replaced by a forEach loop and made more flexible
 for (i = 1; i <= teddybearData_deserialized.length; i++) {
     let currentTeddybear = document.getElementById('product' + i);
     {
