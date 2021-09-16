@@ -25,13 +25,6 @@ productName.textContent = teddybearData_deserialized[productDisplay_deserialized
 productPrice.textContent = (priceNumber / 100) + '.00 $';
 productIMG.src = teddybearData_deserialized[productDisplay_deserialized].imageUrl;
 productDescription.textContent = teddybearData_deserialized[productDisplay_deserialized].description;
-// This is for the dropdown menu <- Need work
-for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
-    let newLi = document.createElement("option")
-    newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
-    newLi.setAttribute("class", "product-card-cartpage-ul")
-    productSelect.appendChild(newLi);
-};
 
 let colorMenu = document.getElementById("productSelect");
 
@@ -51,6 +44,51 @@ const addButton = document.getElementById("addButton");
 let numberProduct = document.getElementById("inputRequired");
 let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
+
+console.log(listOfCartItems);
+if (listOfCartItems) {
+    console.log(listOfCartItems.length);
+    if (listOfCartItems[productDisplay_deserialized] !== undefined) {
+        for (let h = 0; h < listOfCartItems.length; h++){
+            if (teddybearData_deserialized[productDisplay_deserialized].name == listOfCartItems[h].itemName) {
+                console.log(listOfCartItems[h]);
+                let colorHolder = teddybearData_deserialized[productDisplay_deserialized].colors;
+                let waiter = 0;
+                // Make the user's color go first into the array so that it is correctly display on the html
+            for (let i = colorHolder.length; i > 0; i--) {
+                console.log("a");
+                //// THIS IS WHERE YOU ARE STUCK \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                console.log(listOfCartItems[h].itemColor);
+                if (colorHolder[i - 1] == listOfCartItems[h].itemColor) {
+                    console.log("b");
+                    colorHolder.splice(i - 1, 1);
+                    colorHolder.push(listOfCartItems[h].itemColor);
+                    waiter += 1;
+                };
+                // waiter is used to push the user's color first. It is used for order
+                if (waiter >= 1) {
+                    for (let i = colorHolder.length; i != 0; i--) {
+                        let newLi = document.createElement("option");
+                        newLi.textContent = colorHolder[i - 1];
+                        newLi.setAttribute("class", "product-card-cartpage-ul");
+                        console.log("c");
+                        colorMenu.appendChild(newLi);
+                    };
+                    waiter = 0;
+                };
+            }
+            break;
+            };
+        };
+    } else {
+        for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
+            let newLi = document.createElement("option")
+            newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
+            newLi.setAttribute("class", "product-card-cartpage-ul")
+            productSelect.appendChild(newLi);
+        };
+    };
+};
 
 console.log(teddybearData_deserialized[productDisplay_deserialized].name);
 if (listOfCartItems !== null) {
