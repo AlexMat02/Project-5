@@ -45,18 +45,28 @@ function cartItemListCreator (parameter) {
                 let quantityArray = document.getElementsByClassName("quantity");
                 let currentUserInput = (inputCounterArray[n / 2] - 100);
                 let userInput = document.getElementById(currentUserInput + 100);
-                listOfCartItems[n / 2].numberOfItem += parseFloat(userInput.value);
-                localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                quantityArray[n / 2].textContent = "Quantity : " + listOfCartItems[n / 2].numberOfItem;
-                // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
-                totalPrice = 0;
-                // This is the loop to calculate the totalPrice and update the html
-                for (let x = 0; x < listOfCartItems.length; x++) {
-                    totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
-                    totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+                // Check is input is a number
+                if (!isNaN(parseFloat(userInput.value))) {
+                    userInput.style.border = "";
+                    userInput.style.borderRadius = "";
+                    userInput.style.boxShadow = "";
+                    listOfCartItems[n / 2].numberOfItem += parseFloat(userInput.value);
+                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                    quantityArray[n / 2].textContent = "Quantity : " + listOfCartItems[n / 2].numberOfItem;
+                    // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
+                    totalPrice = 0;
+                    // This is the loop to calculate the totalPrice and update the html
+                    for (let x = 0; x < listOfCartItems.length; x++) {
+                        totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+                        totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+                    };
+                } else {
+                    console.log(parseFloat(userInput.value));
+                    console.log("not a number");
+                    userInput.style.border = "red 2px solid";
+                    userInput.style.borderRadius = "20px";
+                    userInput.style.boxShadow = "0px 4px 3px black";
                 };
-                // COLOR /!\
-                // INPUT MUST BE A NUMBER /!\
             };
         };
     });
@@ -81,21 +91,33 @@ function cartItemListCreator (parameter) {
                 // give a result like 0.5 or 1.5; To make the first result even we need to add 1 to n so (n + 1) / 2
                 // and to make the result of this operation odd so that i gives the correct index we remove 1
                 // This gives the correct index to modify;
-                if ( listOfCartItems[((n + 1) / 2) - 1].numberOfItem == 0 ) {
-                    console.log(listOfCartItems[((n + 1) / 2) - 1].numberOfItem);
-                    // Need to remove the item from the webpage, feelsBadMan
-                } else {
-                    listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value);
-                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                    quantityArray[((n + 1) / 2) - 1].textContent = "Quantity : " + listOfCartItems[((n + 1) / 2) - 1].numberOfItem;
-                    // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
-                    totalPrice = 0;
-                    // This is the loop to calculate the totalPrice and update the html
-                    for (let x = 0; x < listOfCartItems.length; x++) {
-                        totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
-                        totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+                // Check is input is a number
+                if (!isNaN(parseFloat(userInput.value))) {
+                    userInput.style.border = "";
+                    userInput.style.borderRadius = "";
+                    userInput.style.boxShadow = "";
+                    if ( listOfCartItems[((n + 1) / 2) - 1].numberOfItem == 0 ) {
+                        console.log(listOfCartItems[((n + 1) / 2) - 1].numberOfItem);
+                        // Need to remove the item from the webpage, feelsBadMan
+                    } else {
+                        listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value);
+                        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                        quantityArray[((n + 1) / 2) - 1].textContent = "Quantity : " + listOfCartItems[((n + 1) / 2) - 1].numberOfItem;
+                        // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
+                        totalPrice = 0;
+                        // This is the loop to calculate the totalPrice and update the html
+                        for (let x = 0; x < listOfCartItems.length; x++) {
+                            totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+                            totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+                        };
+                        console.log(listOfCartItems[((n + 1) / 2) - 1]);
                     };
-                    console.log(listOfCartItems[((n + 1) / 2) - 1]);
+                } else {
+                    console.log(parseFloat(userInput.value));
+                    console.log("not a number");
+                    userInput.style.border = "red 2px solid";
+                    userInput.style.borderRadius = "20px";
+                    userInput.style.boxShadow = "0px 4px 3px black";
                 };
             };
         };

@@ -48,6 +48,8 @@ let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(listOfCartItems);
 if (listOfCartItems) {
     console.log(listOfCartItems.length);
+    // Used to see if the product is already in the cart, if it's not it doesn't execute the code below since
+    // the user did not add the product to his cart yet
     if (listOfCartItems[productDisplay_deserialized] !== undefined) {
         for (let h = 0; h < listOfCartItems.length; h++){
             if (teddybearData_deserialized[productDisplay_deserialized].name == listOfCartItems[h].itemName) {
@@ -56,11 +58,8 @@ if (listOfCartItems) {
                 let waiter = 0;
                 // Make the user's color go first into the array so that it is correctly display on the html
             for (let i = colorHolder.length; i > 0; i--) {
-                console.log("a");
-                //// THIS IS WHERE YOU ARE STUCK \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 console.log(listOfCartItems[h].itemColor);
                 if (colorHolder[i - 1] == listOfCartItems[h].itemColor) {
-                    console.log("b");
                     colorHolder.splice(i - 1, 1);
                     colorHolder.push(listOfCartItems[h].itemColor);
                     waiter += 1;
@@ -71,7 +70,6 @@ if (listOfCartItems) {
                         let newLi = document.createElement("option");
                         newLi.textContent = colorHolder[i - 1];
                         newLi.setAttribute("class", "product-card-cartpage-ul");
-                        console.log("c");
                         colorMenu.appendChild(newLi);
                     };
                     waiter = 0;
@@ -106,70 +104,92 @@ if (listOfCartItems !== null) {
 // This creates an object, if it already exists it just adds the number
 // Need to add a check if input is empty
 addButton.addEventListener("click", () => {
-    if (listOfCartItems == 'null' || listOfCartItems == null) {
-        console.log("listOfCartItems == null");
-        listOfCartItems = [];
-        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description,colorMenu.options[colorMenu.selectedIndex].text );
-        listOfCartItems.push(cartItems);
-        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-        console.log(listOfCartItems);
-        console.log(listOfCartItems.length);
-        productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
+    if (!isNaN(parseFloat(numberProduct.value))) {
+        numberProduct.style.border = "";
+        numberProduct.style.borderRadius = "";
+        numberProduct.style.boxShadow = "";
+        if (listOfCartItems == 'null' || listOfCartItems == null) {
+            console.log("listOfCartItems == null");
+            listOfCartItems = [];
+            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description,colorMenu.options[colorMenu.selectedIndex].text );
+            listOfCartItems.push(cartItems);
+            localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+            console.log(listOfCartItems);
+            console.log(listOfCartItems.length);
+            productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
+        } else {
+            console.log("listOfCartItems !== null");
+            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description, colorMenu.options[colorMenu.selectedIndex].text);
+            //if statement to check if the cartItems is already created, if so, just change the numberOfItem
+            // Checks in listOfCartItems if cartItems already exists, then if it doesn't push it in
+             for (let i = 0; i < listOfCartItems.length ; i++) {
+                if (listOfCartItems[i].itemName == cartItems.itemName)  {
+                    console.log("found");
+                    console.log(i);
+                    listOfCartItems[i].numberOfItem += cartItems.numberOfItem;
+                    productNumber.textContent = "Quantity : " + listOfCartItems[i].numberOfItem;
+                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                    console.log(listOfCartItems);
+                    break;
+                } else if (i == (listOfCartItems.length - 1)){
+                    console.log("not found");
+                    listOfCartItems.push(cartItems);
+                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                    console.log(cartItems.numberOfItem);
+                    productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
+                    console.log(listOfCartItems);
+                    console.log(listOfCartItems.length);
+                    break;
+                } else {
+                    console.log("truly not found");
+                    console.log(i);
+                }
+            }  
+        } 
     } else {
-        console.log("listOfCartItems !== null");
-        cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description, colorMenu.options[colorMenu.selectedIndex].text);
-        //if statement to check if the cartItems is already created, if so, just change the numberOfItem
-        // Checks in listOfCartItems if cartItems already exists, then if it doesn't push it in
-         for (let i = 0; i < listOfCartItems.length ; i++) {
-            if (listOfCartItems[i].itemName == cartItems.itemName)  {
-                console.log("found");
-                console.log(i);
-                listOfCartItems[i].numberOfItem += cartItems.numberOfItem;
-                productNumber.textContent = "Quantity : " + listOfCartItems[i].numberOfItem;
-                localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                console.log(listOfCartItems);
-                break;
-            } else if (i == (listOfCartItems.length - 1)){
-                console.log("not found");
-                listOfCartItems.push(cartItems);
-                localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                console.log(cartItems.numberOfItem);
-                productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
-                console.log(listOfCartItems);
-                console.log(listOfCartItems.length);
-                break;
-            } else {
-                console.log("truly not found");
-                console.log(i);
-            }
-        }  
-    } 
+        console.log(parseFloat(numberProduct.value));
+        console.log("not a number");
+        numberProduct.style.border = "red 2px solid";
+        numberProduct.style.borderRadius = "20px";
+        numberProduct.style.boxShadow = "0px 4px 3px black";
+    };
 });
 
 const removeButton = document.getElementById("removeButton");
 
 // This removes a number of cartItems.numberOfItem from user input
 removeButton.addEventListener("click", () => {
-    if (listOfCartItems !== 'null' || listOfCartItems !== null) {
-        for (let y = 0; y < listOfCartItems.length ; y++){
-            let correctTeddybearName = teddybearData_deserialized[productDisplay_deserialized].name;
-            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
-            if (listOfCartItems[y].itemName == correctTeddybearName) {
-                listOfCartItems[y].numberOfItem -= cartItems.numberOfItem;
-                if (listOfCartItems[y].numberOfItem <= 0) {
-                    listOfCartItems[y].numberOfItem = 0;
-                    productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
-                    console.log(listOfCartItems);
-                    listOfCartItems.splice(y, 1);
-                    console.log(listOfCartItems);
-                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                } else {
-                    console.log("not 0");
-                    console.log(listOfCartItems);
-                    localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                    productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
+    if (!isNaN(parseFloat(numberProduct.value))) {
+        numberProduct.style.border = "";
+        numberProduct.style.borderRadius = "";
+        numberProduct.style.boxShadow = "";
+        if (listOfCartItems !== 'null' || listOfCartItems !== null) {
+            for (let y = 0; y < listOfCartItems.length ; y++){
+                let correctTeddybearName = teddybearData_deserialized[productDisplay_deserialized].name;
+                cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description);
+                if (listOfCartItems[y].itemName == correctTeddybearName) {
+                    listOfCartItems[y].numberOfItem -= cartItems.numberOfItem;
+                    if (listOfCartItems[y].numberOfItem <= 0) {
+                        listOfCartItems[y].numberOfItem = 0;
+                        productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
+                        console.log(listOfCartItems);
+                        listOfCartItems.splice(y, 1);
+                        console.log(listOfCartItems);
+                        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                    } else {
+                        console.log("not 0");
+                        console.log(listOfCartItems);
+                        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                        productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
+                    }
                 }
             }
-        }
+        };
+    } else {
+        console.log(parseFloat(numberProduct.value));
+        console.log("not a number");
+        numberProduct.style.border = "red 2px solid";
+        numberProduct.style.borderRadius = "20px";
+        numberProduct.style.boxShadow = "0px 4px 3px black";
     };
 });
