@@ -89,6 +89,7 @@ if (listOfCartItems) {
 };
 
 console.log(teddybearData_deserialized[productDisplay_deserialized].name);
+// This is to display quantity
 if (listOfCartItems !== null) {
     console.log("listOfCartItems is not null");
     for (let y = 0; y < listOfCartItems.length ; y++){
@@ -108,7 +109,9 @@ addButton.addEventListener("click", () => {
         numberProduct.style.border = "";
         numberProduct.style.borderRadius = "";
         numberProduct.style.boxShadow = "";
-        if (listOfCartItems == 'null' || listOfCartItems == null) {
+        console.log(listOfCartItems);
+        console.log(listOfCartItems.length);
+        if (listOfCartItems == null || listOfCartItems.length == 0) {
             console.log("listOfCartItems == null");
             listOfCartItems = [];
             cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description,colorMenu.options[colorMenu.selectedIndex].text );

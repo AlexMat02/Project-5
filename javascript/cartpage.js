@@ -96,9 +96,11 @@ function cartItemListCreator (parameter) {
                     userInput.style.border = "";
                     userInput.style.borderRadius = "";
                     userInput.style.boxShadow = "";
-                    if ( listOfCartItems[((n + 1) / 2) - 1].numberOfItem == 0 ) {
-                        console.log(listOfCartItems[((n + 1) / 2) - 1].numberOfItem);
-                        // Need to remove the item from the webpage, feelsBadMan
+                    if ( (listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value)) == 0 ) {
+                        console.log(listOfCartItems[((n + 1) / 2) - 1]);
+                        listOfCartItems.splice(((n + 1) / 2) - 1, 1);
+                        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                        window.location.reload()
                     } else {
                         listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value);
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
@@ -195,7 +197,7 @@ let totalPrice = 0;
 let divCartList = document.getElementById("divCartList");
 let totalCartPrice = document.createElement("p");
 // Checks if the cart is empty
-if (listOfCartItems !== null) {
+if (listOfCartItems !== null || listOfCartItems.length > 0) {
     for (let x = 0; x < listOfCartItems.length; x++) {
     cartItemListCreator(x);
     totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
