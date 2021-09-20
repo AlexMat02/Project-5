@@ -219,7 +219,7 @@ if (listOfCartItems !== null || listOfCartItems.length > 0) {
 
 let formData = {
     firstName: "",
-    familyName: "",
+    lastName: "",
     address: "",
     city: "",
     email: ""
@@ -242,15 +242,19 @@ formErrorMsg.style.textAlign = "center";
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
 
 let formCounter = 0;
-
+console.log(totalPrice);
 // Need to review how it works, perhaps use a constructor
 submitButton.addEventListener('click', () =>{
     if ( firstNameVar.value.length > 0 || familyNameVar.value.length > 0 || addressVar.value.length > 0 || cityVar.value.length > 0 || emailVar.value.length > 0) {
         formData.firstName = firstNameVar.value;
-        formData.familyName = familyNameVar.value;
+        formData.lastName = familyNameVar.value;
         formData.address = addressVar.value;
         formData.city = cityVar.value;
         formData.email = emailVar.value;
+        localStorage.setItem("formData", JSON.stringify(formData));
+        localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
+        console.log("formData sent to localStorage");
+        window.location = "orderconfirmation.html"
         if (formCounter === 1) {
             formHTML.removeChild(formErrorMsg);
             formCounter -= 1;

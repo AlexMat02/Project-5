@@ -29,13 +29,14 @@ productDescription.textContent = teddybearData_deserialized[productDisplay_deser
 let colorMenu = document.getElementById("productSelect");
 
 class cartItem{
-    constructor(itemName, numberOfItem, itemPrice, itemUrl, itemDescription, itemColor) {
+    constructor(itemName, numberOfItem, itemPrice, itemUrl, itemDescription, itemColor, _id ) {
         this.itemName = itemName;
         this.numberOfItem = numberOfItem;
         this.itemPrice = itemPrice;
         this.itemUrl = itemUrl;
         this.itemDescription = itemDescription
         this.itemColor = itemColor
+        this._id = _id
     }
 };
 
@@ -114,7 +115,7 @@ addButton.addEventListener("click", () => {
         if (listOfCartItems == null || listOfCartItems.length == 0) {
             console.log("listOfCartItems == null");
             listOfCartItems = [];
-            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description,colorMenu.options[colorMenu.selectedIndex].text );
+            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description,colorMenu.options[colorMenu.selectedIndex].text, teddybearData_deserialized[productDisplay_deserialized]._id );
             listOfCartItems.push(cartItems);
             localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
             console.log(listOfCartItems);
@@ -122,7 +123,7 @@ addButton.addEventListener("click", () => {
             productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
         } else {
             console.log("listOfCartItems !== null");
-            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description, colorMenu.options[colorMenu.selectedIndex].text);
+            cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description, colorMenu.options[colorMenu.selectedIndex].text, teddybearData_deserialized[productDisplay_deserialized]._id);
             //if statement to check if the cartItems is already created, if so, just change the numberOfItem
             // Checks in listOfCartItems if cartItems already exists, then if it doesn't push it in
              for (let i = 0; i < listOfCartItems.length ; i++) {
