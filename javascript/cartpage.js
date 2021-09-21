@@ -22,7 +22,7 @@ function cartItemListCreator (parameter) {
     divAddRemove.setAttribute("class", "product-card-cartpage-number")
     //This is for creating the img
     let imgCreator = document.createElement("img");
-    imgCreator.src = listOfCartItems[parameter].itemUrl;
+    imgCreator.src = listOfCartItems[parameter].imageUrl;
     imgCreator.setAttribute("class", "product-card-cartpage--img")
     //This is to create the input
     let input = document.createElement("input");
@@ -57,7 +57,7 @@ function cartItemListCreator (parameter) {
                     totalPrice = 0;
                     // This is the loop to calculate the totalPrice and update the html
                     for (let x = 0; x < listOfCartItems.length; x++) {
-                        totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+                        totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
                         totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
                     };
                 } else {
@@ -109,7 +109,7 @@ function cartItemListCreator (parameter) {
                         totalPrice = 0;
                         // This is the loop to calculate the totalPrice and update the html
                         for (let x = 0; x < listOfCartItems.length; x++) {
-                            totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+                            totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
                             totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
                         };
                         console.log(listOfCartItems[((n + 1) / 2) - 1]);
@@ -128,18 +128,18 @@ function cartItemListCreator (parameter) {
     removeButton.textContent = "Remove";
     //This is the creating the paragraph Product Name
     let pCreator = document.createElement("p");
-    pCreator.textContent = listOfCartItems[parameter].itemName;
+    pCreator.textContent = listOfCartItems[parameter].name;
     pCreator.setAttribute("class", "product-card-cartpage-info--style");
     //This is creating the dropdown menu
     let pDropdownMenu = document.createElement("select");
     pDropdownMenu.setAttribute("id", "productSelect");
     //This is creating the paragraph Price
     let pPrice = document.createElement("p");
-    pPrice.textContent = (listOfCartItems[parameter].itemPrice / 100) + ".00 $";
+    pPrice.textContent = (listOfCartItems[parameter].price / 100) + ".00 $";
     pPrice.setAttribute("class", "product-card-cartpage-info--style");
     //This is for creating the description
     let pDescription = document.createElement("p");
-    pDescription.textContent = listOfCartItems[parameter].itemDescription;
+    pDescription.textContent = listOfCartItems[parameter].description;
     pDescription.setAttribute("class", "product-card-cartpage-info--style");
     pDescription.setAttribute("id", "productDescription");
     //This is creating the paragraph Number
@@ -155,7 +155,7 @@ function cartItemListCreator (parameter) {
     divText.appendChild(pPrice);
     divText.appendChild(pProductNumber);
     // Define var for creating the dropdown menu
-    let stockName = listOfCartItems[parameter].itemName;
+    let stockName = listOfCartItems[parameter].name;
     let colorHolder;
     let waiter = 0;
     // Create the dropdown menu
@@ -200,7 +200,7 @@ let totalCartPrice = document.createElement("p");
 if (listOfCartItems !== null || listOfCartItems.length > 0) {
     for (let x = 0; x < listOfCartItems.length; x++) {
     cartItemListCreator(x);
-    totalPrice = totalPrice + ((listOfCartItems[x].itemPrice * listOfCartItems[x].numberOfItem) / 100);
+    totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
     console.log(totalPrice);
     totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
     };
