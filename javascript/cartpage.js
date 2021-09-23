@@ -96,7 +96,7 @@ function cartItemListCreator (parameter) {
                     userInput.style.border = "";
                     userInput.style.borderRadius = "";
                     userInput.style.boxShadow = "";
-                    if ( (listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value)) == 0 ) {
+                    if ( (listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value)) <= 0 ) {
                         console.log(listOfCartItems[((n + 1) / 2) - 1]);
                         listOfCartItems.splice(((n + 1) / 2) - 1, 1);
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
@@ -197,24 +197,30 @@ let totalPrice = 0;
 let divCartList = document.getElementById("divCartList");
 let totalCartPrice = document.createElement("p");
 // Checks if the cart is empty
-if (listOfCartItems !== null || listOfCartItems.length > 0) {
-    for (let x = 0; x < listOfCartItems.length; x++) {
-    cartItemListCreator(x);
-    totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
-    console.log(totalPrice);
-    totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
-    };
-    totalCartPrice.style.textAlign = "center";
-    totalCartPrice.style.margin = "5px";
-    divCartList.appendChild(totalCartPrice);
-} else {
+console.log("Cart Check")
+if (listOfCartItems == null || listOfCartItems.length == 0) {
+    console.log("empty cart")
     let emptyCartError = document.createElement("p");
     emptyCartError.textContent = "Empty cart"
     emptyCartError.style.textAlign = "center";
     emptyCartError.style.margin = "5px";
     let mainDiv = document.getElementById("divCartList")
     mainDiv.appendChild(emptyCartError);
-    console.log("empty cart")
+} else {
+    console.log("cart verify")
+    for (let x = 0; x < listOfCartItems.length; x++) {
+        console.log("not empty")
+        cartItemListCreator(x);
+        totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
+        console.log(totalPrice);
+        totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
+    };
+    console.log(listOfCartItems);
+    console.log(listOfCartItems.length);
+    console.log("seen")
+    totalCartPrice.style.textAlign = "center";
+    totalCartPrice.style.margin = "5px";
+    divCartList.appendChild(totalCartPrice);
 }
 
 let formData = {
