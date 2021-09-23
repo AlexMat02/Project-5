@@ -102,9 +102,9 @@ function cartItemListCreator (parameter) {
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                         window.location.reload()
                     } else {
-                        listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value);
-                        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
+                        console.log("Correct Number " + (listOfCartItems[((n + 1) / 2) - 1].numberOfItem));
                         quantityArray[((n + 1) / 2) - 1].textContent = "Quantity : " + listOfCartItems[((n + 1) / 2) - 1].numberOfItem;
+                        localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                         // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
                         totalPrice = 0;
                         // This is the loop to calculate the totalPrice and update the html
