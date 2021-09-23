@@ -4,6 +4,7 @@ let teddybearData = "";
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 console.log(listOfCartItems);
 
+// Get Data from the backend
 fetch(urlBackend).then(response => response.json()).then(data => {
     console.log(data)
     teddybearData = data
@@ -19,6 +20,7 @@ fetch(urlBackend).then(response => response.json()).then(data => {
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"))
 let productDisplay = 0;
 
+// This is to create the listpage dynamically
 for (i = 1; i <= teddybearData_deserialized.length; i++) {
     let currentTeddybear = document.getElementById('product' + i);
     {

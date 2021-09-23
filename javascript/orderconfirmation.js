@@ -4,6 +4,7 @@ console.log(listOfCartItems);
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
 console.log(teddybearData_deserialized);
 
+// Used to put the id(s) of listOfCartItems into the array products to send it to the backend.
 let products = [];
 for (let q = 0; q < listOfCartItems.length; q++){
     products.push(listOfCartItems[q]._id)
