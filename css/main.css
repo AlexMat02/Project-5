@@ -395,4 +395,8 @@ nav {
 .main-orderpage-id {
   margin-left: 5px;
 }
+
+#orderIdText {
+  white-space: nowrap;
+}
 /*# sourceMappingURL=main.css.map */
