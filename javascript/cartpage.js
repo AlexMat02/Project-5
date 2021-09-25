@@ -1,5 +1,4 @@
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
-console.log(listOfCartItems);
 
 // This two lines of code allows this javascript file to get the necessary data
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
@@ -36,9 +35,7 @@ function cartItemListCreator (parameter) {
     // When a buttonCreator is pressed, it gives its id so we know which button was pressed
     buttonCreator.addEventListener("click", () =>  {
         let currentIdButton = event.target.id;
-        console.log(currentIdButton);
         let currentButton = document.getElementById(currentIdButton);
-        console.log(currentButton);
         // This is to get the index for listOfItem
         for (n = 0; n < buttonCounterArray.length; n++){
             if (currentIdButton == buttonCounterArray[n]) {
@@ -61,8 +58,6 @@ function cartItemListCreator (parameter) {
                         totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
                     };
                 } else {
-                    console.log(parseFloat(userInput.value));
-                    console.log("not a number");
                     userInput.style.border = "red 2px solid";
                     userInput.style.borderRadius = "20px";
                     userInput.style.boxShadow = "0px 4px 3px black";
@@ -79,12 +74,9 @@ function cartItemListCreator (parameter) {
     buttonCounterArray.push(oddCounterRemoveButton);
     removeButton.addEventListener("click", () => {
         let currentIdButton = event.target.id;
-        console.log(currentIdButton);
         let currentButton = document.getElementById(currentIdButton);
-        console.log(currentButton);
         for (n = 0; n < buttonCounterArray.length; n++){
             if (currentIdButton == buttonCounterArray[n]){
-                console.log(buttonCounterArray[n])
                 let quantityArray = document.getElementsByClassName("quantity");
                 let userInput = document.getElementById(((n + 1) / 2) - 1 + 100);
                 // The reason for (((n + 1) / 2) - 1) is because removeButton ids are odd, so n / 2 would 
@@ -97,12 +89,10 @@ function cartItemListCreator (parameter) {
                     userInput.style.borderRadius = "";
                     userInput.style.boxShadow = "";
                     if ( (listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value)) <= 0 ) {
-                        console.log(listOfCartItems[((n + 1) / 2) - 1]);
                         listOfCartItems.splice(((n + 1) / 2) - 1, 1);
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                         window.location.reload()
                     } else {
-                        console.log("Correct Number " + (listOfCartItems[((n + 1) / 2) - 1].numberOfItem));
                         quantityArray[((n + 1) / 2) - 1].textContent = "Quantity : " + listOfCartItems[((n + 1) / 2) - 1].numberOfItem;
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                         // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
@@ -112,11 +102,8 @@ function cartItemListCreator (parameter) {
                             totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
                             totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
                         };
-                        console.log(listOfCartItems[((n + 1) / 2) - 1]);
                     };
                 } else {
-                    console.log(parseFloat(userInput.value));
-                    console.log("not a number");
                     userInput.style.border = "red 2px solid";
                     userInput.style.borderRadius = "20px";
                     userInput.style.boxShadow = "0px 4px 3px black";
@@ -182,8 +169,6 @@ function cartItemListCreator (parameter) {
                 };
             };
             break;
-        } else {
-            console.log("name not found");
         }
     };
     divText.appendChild(pDescription);
@@ -197,9 +182,7 @@ let totalPrice = 0;
 let divCartList = document.getElementById("divCartList");
 let totalCartPrice = document.createElement("p");
 // Checks if the cart is empty
-console.log("Cart Check")
 if (listOfCartItems == null || listOfCartItems.length == 0) {
-    console.log("empty cart")
     let emptyCartError = document.createElement("p");
     emptyCartError.textContent = "Empty cart"
     emptyCartError.style.textAlign = "center";
@@ -207,17 +190,11 @@ if (listOfCartItems == null || listOfCartItems.length == 0) {
     let mainDiv = document.getElementById("divCartList")
     mainDiv.appendChild(emptyCartError);
 } else {
-    console.log("cart verify")
     for (let x = 0; x < listOfCartItems.length; x++) {
-        console.log("not empty")
         cartItemListCreator(x);
         totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
-        console.log(totalPrice);
         totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
     };
-    console.log(listOfCartItems);
-    console.log(listOfCartItems.length);
-    console.log("seen")
     totalCartPrice.style.textAlign = "center";
     totalCartPrice.style.margin = "5px";
     divCartList.appendChild(totalCartPrice);
@@ -246,7 +223,6 @@ formErrorMsg.innerText = "The form hasn't been filled correctly";
 formErrorMsg.style.textAlign = "center";
 
 let formCounter = 0;
-console.log(totalPrice);
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
 submitButton.addEventListener('click', () =>{
     if ( firstNameVar.value.length > 0 || familyNameVar.value.length > 0 || addressVar.value.length > 0 || cityVar.value.length > 0 || emailVar.value.length > 0) {
@@ -257,15 +233,12 @@ submitButton.addEventListener('click', () =>{
         formData.email = emailVar.value;
         localStorage.setItem("formData", JSON.stringify(formData));
         localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
-        console.log("formData sent to localStorage");
         window.location = "orderconfirmation.html"
         if (formCounter === 1) {
             formHTML.removeChild(formErrorMsg);
             formCounter -= 1;
-            console.log(formCounter)
         }
     } else {
-        console.log(formCounter)
         if (formCounter !== 1) {
             formHTML.appendChild(formErrorMsg);
             formCounter += 1;

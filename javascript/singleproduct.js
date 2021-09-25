@@ -5,7 +5,6 @@ let productDisplay_deserialized = JSON.parse(localStorage.getItem("productDispla
 
 // This enables to use teddybearData
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
-console.log(teddybearData_deserialized);
 
 // This is the part of the code for getting the correct html to change
 
@@ -45,9 +44,7 @@ let numberProduct = document.getElementById("inputRequired");
 let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
-console.log(listOfCartItems);
 if (listOfCartItems == null || listOfCartItems.length == 0) {
-    console.log("listOfCartItems is empty");
     // Makes the dropdown menu
     for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
         let newLi = document.createElement("option")
@@ -59,16 +56,11 @@ if (listOfCartItems == null || listOfCartItems.length == 0) {
     // Used to see if the product is already in the cart, if it's not it doesn't execute the code below since
     // the user did not add the product to his cart yet
     for (let h = 0; h < listOfCartItems.length; h++){
-        console.log(teddybearData_deserialized[productDisplay_deserialized].name);
-        console.log(listOfCartItems[h].name);
         if (teddybearData_deserialized[productDisplay_deserialized].name == listOfCartItems[h].name) {
-            console.log(listOfCartItems[h]);
             let colorHolder = teddybearData_deserialized[productDisplay_deserialized].colors;
             let waiter = 0;
-            console.log(colorHolder);
             // Make the user's color go first into the array so that it is correctly display on the html
         for (let i = colorHolder.length; i > 0; i--) {
-            console.log(listOfCartItems[h].itemColor);
             if (colorHolder[i - 1] == listOfCartItems[h].itemColor) {
                 colorHolder.splice(i - 1, 1);
                 colorHolder.push(listOfCartItems[h].itemColor);
@@ -86,7 +78,6 @@ if (listOfCartItems == null || listOfCartItems.length == 0) {
             };
         };
         } else if (h >= listOfCartItems.length - 1) {
-            console.log("not found");
             for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
                 let newLi = document.createElement("option")
                 newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
@@ -97,10 +88,8 @@ if (listOfCartItems == null || listOfCartItems.length == 0) {
     };
 }
 
-console.log(teddybearData_deserialized[productDisplay_deserialized].name);
 // This is to display quantity
 if (listOfCartItems !== null) {
-    console.log("listOfCartItems is not null");
     for (let y = 0; y < listOfCartItems.length ; y++){
         let correctTeddybearName = teddybearData_deserialized[productDisplay_deserialized].name;
         if (listOfCartItems[y].name == correctTeddybearName) {
@@ -108,7 +97,6 @@ if (listOfCartItems !== null) {
         }
     }
 } else {
-    console.log("listOfCartItems is null");
     for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
         let newLi = document.createElement("option")
         newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
@@ -125,42 +113,30 @@ addButton.addEventListener("click", () => {
         numberProduct.style.boxShadow = "";
         // This verify if listOfCartItems is null or empty
         if (listOfCartItems == null || listOfCartItems.length == 0) {
-            console.log("listOfCartItems == null");
             listOfCartItems = [];
             cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description,colorMenu.options[colorMenu.selectedIndex].text, teddybearData_deserialized[productDisplay_deserialized]._id );
             listOfCartItems.push(cartItems);
             localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-            console.log(listOfCartItems);
             productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
         } else {
-            console.log("listOfCartItems !== null");
             cartItems = new cartItem(teddybearData_deserialized[productDisplay_deserialized].name, Number(numberProduct.value), teddybearData_deserialized[productDisplay_deserialized].price, teddybearData_deserialized[productDisplay_deserialized].imageUrl, teddybearData_deserialized[productDisplay_deserialized].description, colorMenu.options[colorMenu.selectedIndex].text, teddybearData_deserialized[productDisplay_deserialized]._id);
             //if statement to check if the cartItems is already created, if so, just change the numberOfItem
             // Checks in listOfCartItems if cartItems already exists, then if it doesn't push it in
              for (let i = 0; i < listOfCartItems.length ; i++) {
                 if (listOfCartItems[i].name == cartItems.name)  {
-                    console.log("found");
                     listOfCartItems[i].numberOfItem += cartItems.numberOfItem;
                     productNumber.textContent = "Quantity : " + listOfCartItems[i].numberOfItem;
                     localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
-                    console.log(listOfCartItems);
                     break;
                 } else if (i == (listOfCartItems.length - 1)){
-                    console.log("not found");
                     listOfCartItems.push(cartItems);
                     localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                     productNumber.textContent = "Quantity : " + cartItems.numberOfItem;
-                    console.log(listOfCartItems);
                     break;
-                } else {
-                    console.log("truly not found");
-                    console.log(i);
                 }
             }  
         } 
     } else {
-        console.log(parseFloat(numberProduct.value));
-        console.log("not a number");
         numberProduct.style.border = "red 2px solid";
         numberProduct.style.borderRadius = "20px";
         numberProduct.style.boxShadow = "0px 4px 3px black";
@@ -186,11 +162,8 @@ removeButton.addEventListener("click", () => {
                         listOfCartItems[y].numberOfItem = 0;
                         productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
                         listOfCartItems.splice(y, 1);
-                        console.log(listOfCartItems);
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                     } else {
-                        console.log("not 0");
-                        console.log(listOfCartItems);
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                         productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
                     }
@@ -198,8 +171,6 @@ removeButton.addEventListener("click", () => {
             }
         };
     } else {
-        console.log(parseFloat(numberProduct.value));
-        console.log("not a number");
         numberProduct.style.border = "red 2px solid";
         numberProduct.style.borderRadius = "20px";
         numberProduct.style.boxShadow = "0px 4px 3px black";
