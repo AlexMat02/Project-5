@@ -250,11 +250,44 @@ const formErrorMsg = document.createElement("p");
 formErrorMsg.innerText = "The form hasn't been filled correctly";
 formErrorMsg.style.textAlign = "center";
 
+function emailVerification (textValue) {
+    let emailArray = [];
+    let dotCounter = 0;
+    let arobaseCounter = 0
+    for (let i = 0; i < textValue.length; i++) {
+        // Put each character of textValue into an array so that we can check every one of them individually.
+        emailArray.push(textValue.slice(i, i + 1));
+        // Checks for the for loop to be done.
+    }
+    // Checks every value in emailArray.
+    for (let a = 0; a < emailArray.length; a++) {
+        // Checks @, also checks if the value before the @ exists.
+        // Also checks if the value after is not a dot.
+        // All of this is done to follow the correct email format.
+        if (emailArray[a] == "@" && emailArray[a - 1] && emailArray[a + 1] != ".") {
+            arobaseCounter += 1;
+        // Checks if "." exists, also check if the value before exist.
+        // Checks if the two next values exist as email tends to end with : fr, com, de.
+        // Checks if (a + 1) (which is the index + 1), is an index greater than 2/3rd of the array.
+        // It is done to not count "." in the start but only in the end.
+        //It won't work when the email of the user reach 40characters+
+        // But it is not expected of people to have an email 40characters+ long with a dot inside.
+        } else if (emailArray[a] == "." && emailArray[a - 1] && emailArray[a + 1] && emailArray[a + 2] && (a + 1) >= ((emailArray.length / 100) * 66)) {
+            dotCounter += 1;
+        }
+    }
+    // if statement to make sure the email address has only one "@" and only one correct "."
+    if ( arobaseCounter === 1 && dotCounter === 1) {
+        return true
+    };
+    
+};
+
 let formCounter = 0;
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
 submitButton.addEventListener('click', () =>{
     // Check if the form has been filled.
-    if ( firstNameVar.value.length > 0 || familyNameVar.value.length > 0 || addressVar.value.length > 0 || cityVar.value.length > 0 || emailVar.value.length > 0) {
+    if ( firstNameVar.value.length > 0 && familyNameVar.value.length > 0 && addressVar.value.length > 0 && cityVar.value.length > 0 && emailVar.value.length > 0 && emailVerification(emailVar.value)) {
         formData.firstName = firstNameVar.value;
         formData.lastName = familyNameVar.value;
         formData.address = addressVar.value;
