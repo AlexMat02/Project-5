@@ -1,8 +1,8 @@
+// Allow this javascript file to get the necessary localStorage data.
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
-
-// This two lines of code allows this javascript file to get the necessary data
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"));
 let productDisplay_deserialized = JSON.parse(localStorage.getItem("productDisplayer"));
+
 let oddCounterRemoveButton = 1;
 let evenCounterAddButton = 0;
 let buttonCounterArray = [];
@@ -35,18 +35,26 @@ function cartItemListCreator (parameter) {
     // When a buttonCreator is pressed, it gives its id so we know which button was pressed
     buttonCreator.addEventListener("click", () =>  {
         let currentIdButton = event.target.id;
-        let currentButton = document.getElementById(currentIdButton);
-        // This is to get the index for listOfItem
+        // This is to get the index for listOfCartItems
         for (n = 0; n < buttonCounterArray.length; n++){
             if (currentIdButton == buttonCounterArray[n]) {
                 let quantityArray = document.getElementsByClassName("quantity");
+                // currentUserInput is used to get the correct input id in the array so that userInput can get the correct id
+                // currentUserInput has an (n/2) to get the correct index since inputCounterArray will always be twice as
+                // small as buttonCounterArray. Since n is the correct index for buttonCounterArray, it needs to be divided
+                // by 2 to get the correct index for other array which are twice as small.
                 let currentUserInput = (inputCounterArray[n / 2] - 100);
+                // userInput is +100 because the id's of the input are 100 + parameter (which is an index)
                 let userInput = document.getElementById(currentUserInput + 100);
-                // Check is input is a number
+                // Check is input is a number, since it need to be a number because
+                // Quantity is a number
                 if (!isNaN(parseFloat(userInput.value))) {
+                    // It resets the style of the input in case the input style has been previously changed
                     userInput.style.border = "";
                     userInput.style.borderRadius = "";
                     userInput.style.boxShadow = "";
+                    // change the value of quantity of the item and updates it.
+                    // (n/2) is used once again, since listOfCartItems will also always be twice as small as buttonCounterArray
                     listOfCartItems[n / 2].numberOfItem += parseFloat(userInput.value);
                     localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                     quantityArray[n / 2].textContent = "Quantity : " + listOfCartItems[n / 2].numberOfItem;
@@ -58,6 +66,8 @@ function cartItemListCreator (parameter) {
                         totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
                     };
                 } else {
+                    // Input wasn't a number, so it changes the input style to indicate the
+                    // user that the input is wrong, and the modification didn't work
                     userInput.style.border = "red 2px solid";
                     userInput.style.borderRadius = "20px";
                     userInput.style.boxShadow = "0px 4px 3px black";
@@ -65,6 +75,7 @@ function cartItemListCreator (parameter) {
             };
         };
     });
+    // This is to set the id of the buttonCreator to always be even which helps to find them back.
     evenCounterAddButton += 2;
     buttonCreator.textContent = "Add";
     //This is to create the remove button
@@ -74,7 +85,7 @@ function cartItemListCreator (parameter) {
     buttonCounterArray.push(oddCounterRemoveButton);
     removeButton.addEventListener("click", () => {
         let currentIdButton = event.target.id;
-        let currentButton = document.getElementById(currentIdButton);
+        // This is to get the index for listOfCartItems
         for (n = 0; n < buttonCounterArray.length; n++){
             if (currentIdButton == buttonCounterArray[n]){
                 let quantityArray = document.getElementsByClassName("quantity");
@@ -85,14 +96,21 @@ function cartItemListCreator (parameter) {
                 // This gives the correct index to modify;
                 // Check is input is a number
                 if (!isNaN(parseFloat(userInput.value))) {
+                    // It resets the style of the input in case the input style has been previously changed
                     userInput.style.border = "";
                     userInput.style.borderRadius = "";
                     userInput.style.boxShadow = "";
+                    // If statement to check if the quantity of the object in listOfCartItems would reach 0 or
+                    // a value lower than 0. If it's the case, it splices the object from the array listOfCartItems
+                    // set the new listOfCartItems value in the local storage and reload the page
+                    // to make the html display correctly
                     if ( (listOfCartItems[((n + 1) / 2) - 1].numberOfItem -= parseFloat(userInput.value)) <= 0 ) {
                         listOfCartItems.splice(((n + 1) / 2) - 1, 1);
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                         window.location.reload()
                     } else {
+                        // The quantity of the object in listOfCartItems did not reach a value of 0 or lower, so it
+                        // only needs to update the value and not to delete it.
                         quantityArray[((n + 1) / 2) - 1].textContent = "Quantity : " + listOfCartItems[((n + 1) / 2) - 1].numberOfItem;
                         localStorage.setItem("listOfCartItems", JSON.stringify(listOfCartItems));
                         // totalPrice = 0 is used to reset the totalPrice so it doesn't add the previous totalPrice to the new one
@@ -104,6 +122,8 @@ function cartItemListCreator (parameter) {
                         };
                     };
                 } else {
+                    // Input wasn't a number, so it changes the input style to indicate the
+                    // user that the input is wrong, and the modification didn't work
                     userInput.style.border = "red 2px solid";
                     userInput.style.borderRadius = "20px";
                     userInput.style.boxShadow = "0px 4px 3px black";
@@ -142,11 +162,14 @@ function cartItemListCreator (parameter) {
     divText.appendChild(pPrice);
     divText.appendChild(pProductNumber);
     // Define var for creating the dropdown menu
+    // stockName is used to have the correct teddybear name
     let stockName = listOfCartItems[parameter].name;
     let colorHolder;
     let waiter = 0;
     // Create the dropdown menu
+    // for loop to check every object in teddybearData_deserialized
     for (let w = (teddybearData_deserialized.length - 1); w >= 0; w--) {
+        // if statement to find the correct teddybear name
         if (stockName == teddybearData_deserialized[w].name) {
             colorHolder = teddybearData_deserialized[w].colors;
             divText.appendChild(pDropdownMenu);
@@ -179,9 +202,9 @@ function cartItemListCreator (parameter) {
 };
 
 let totalPrice = 0;
-let divCartList = document.getElementById("divCartList");
+const divCartList = document.getElementById("divCartList");
 let totalCartPrice = document.createElement("p");
-// Checks if the cart is empty
+// Checks if listOfCartItems is empty
 if (listOfCartItems == null || listOfCartItems.length == 0) {
     let emptyCartError = document.createElement("p");
     emptyCartError.textContent = "Empty cart"
@@ -191,6 +214,9 @@ if (listOfCartItems == null || listOfCartItems.length == 0) {
     mainDiv.appendChild(emptyCartError);
 } else {
     for (let x = 0; x < listOfCartItems.length; x++) {
+        // If listOfCartItems is not empty, it will create a card of each item in listOfCartItems.
+        // Then, it will calculate the total price and update the html.
+        // The parameter x is for the index of the item in listOfCartItems
         cartItemListCreator(x);
         totalPrice = totalPrice + ((listOfCartItems[x].price * listOfCartItems[x].numberOfItem) / 100);
         totalCartPrice.textContent = "Total Price : " + totalPrice + ".00 $";
@@ -208,38 +234,45 @@ let formData = {
     email: ""
 };
 
-let firstNameVar = document.getElementById("firstName");
-let familyNameVar = document.getElementById("familyName");
-let addressVar = document.getElementById("address");
-let cityVar = document.getElementById("city");
-let emailVar = document.getElementById("email");
+
+// This is to get the inputs for the form
+const firstNameVar = document.getElementById("firstName");
+const familyNameVar = document.getElementById("familyName");
+const addressVar = document.getElementById("address");
+const cityVar = document.getElementById("city");
+const emailVar = document.getElementById("email");
 
 const submitButton = document.getElementById("submit");
 
 //This is the code for the error message if the form is not filled
-let formHTML = document.getElementById("form");
-let formErrorMsg = document.createElement("p");
+const formHTML = document.getElementById("form");
+const formErrorMsg = document.createElement("p");
 formErrorMsg.innerText = "The form hasn't been filled correctly";
 formErrorMsg.style.textAlign = "center";
 
 let formCounter = 0;
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
 submitButton.addEventListener('click', () =>{
+    // Check if the form has been filled.
     if ( firstNameVar.value.length > 0 || familyNameVar.value.length > 0 || addressVar.value.length > 0 || cityVar.value.length > 0 || emailVar.value.length > 0) {
         formData.firstName = firstNameVar.value;
         formData.lastName = familyNameVar.value;
         formData.address = addressVar.value;
         formData.city = cityVar.value;
         formData.email = emailVar.value;
+        // Put the form into localStorage so that it can be used in other pages
         localStorage.setItem("formData", JSON.stringify(formData));
         localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
+        // Change this page to the orderconfirmation page.
         window.location = "orderconfirmation.html"
         if (formCounter === 1) {
+            // This removes the errorMsg from the html
             formHTML.removeChild(formErrorMsg);
             formCounter -= 1;
         }
     } else {
         if (formCounter !== 1) {
+            // This add the errorMsg to the html.
             formHTML.appendChild(formErrorMsg);
             formCounter += 1;
         }
