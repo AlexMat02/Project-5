@@ -6,11 +6,6 @@ let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 // Get Data from the backend
 fetch(urlBackend).then(response => response.json()).then(data => {
     teddybearData = data
-    // This loop is for setting up the list page with the correct names and images.
-    for (let teddybearTitle = 0; teddybearTitle < teddybearData.length; teddybearTitle++) {
-        document.getElementsByClassName('container_teddybear--text')[teddybearTitle].textContent = teddybearData[teddybearTitle].name;
-        document.getElementsByClassName('container_teddybear--img')[teddybearTitle].src = teddybearData[teddybearTitle].imageUrl;
-    }
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized);
 });
