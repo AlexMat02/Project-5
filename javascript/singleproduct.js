@@ -39,7 +39,6 @@ class cartItem{
 
 const addButton = document.getElementById("addButton");
 const numberProduct = document.getElementById("inputRequired");
-let list_CartItems = localStorage.getItem("listOfCartItems");
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
 // Makes the dropdown menu, first check if the cart exist or if it's empty, since if it is
