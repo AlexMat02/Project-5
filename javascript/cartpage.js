@@ -287,7 +287,7 @@ let formCounter = 0;
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
 submitButton.addEventListener('click', () =>{
     // Check if the form has been filled.
-    if ( firstNameVar.value.length > 0 && familyNameVar.value.length > 0 && addressVar.value.length > 0 && cityVar.value.length > 0 && emailVar.value.length > 0 && emailVerification(emailVar.value)) {
+    if ( firstNameVar.value.length > 0 && familyNameVar.value.length > 0 && addressVar.value.length > 0 && cityVar.value.length > 0 && emailVar.value.length > 0 && emailVerification(emailVar.value) && listOfCartItems.length > 0) {
         formData.firstName = firstNameVar.value;
         formData.lastName = familyNameVar.value;
         formData.address = addressVar.value;
