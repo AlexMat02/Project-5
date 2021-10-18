@@ -4,10 +4,12 @@ let teddybearData = "";
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 
 // Get Data from the backend
-fetch(urlBackend).then(response => response.json())
+fetch(urlBackend)
+    .then(response => response.json())
     .then(data => {  teddybearData = data
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized)
+    console.log("found out");
     }).catch((error) => {
     console.log(error);
 });
