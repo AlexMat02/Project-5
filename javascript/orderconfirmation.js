@@ -29,9 +29,7 @@ fetch(urlPOSTRequest, {method : 'POST',headers: {'Content-Type': 'application/js
     .then(response => response.json())
     .then(data => {htmlUserId.textContent = data.orderId})
     .catch((error) => {
-        response.status(400).json({
-            error: error
-        })
+        console.log(error);
     });
 
 // Send each product id to the backend.
@@ -39,8 +37,6 @@ for (let i = 0; i < products.length; i++){
     let urlBackendId = `http://127.0.0.1:3000/api/teddies/${products[i]}`;
     fetch(urlBackendId).then(response => response.json()).then(data => {})
     .catch((error) => {
-        response.status(400).json({
-            error: error
-        });
+        console.log(error);
     })
 };
