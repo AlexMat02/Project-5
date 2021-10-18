@@ -29,7 +29,7 @@ fetch(urlPOSTRequest, {method : 'POST',headers: {'Content-Type': 'application/js
     .then(response => response.json())
     .then(data => {htmlUserId.textContent = data.orderId})
     .catch((error) => {
-        console.log(error);
+        console.log(error.message);
     });
 
 // Send each product id to the backend.
