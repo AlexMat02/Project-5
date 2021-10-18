@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 let urlBackend = 'http://127.0.0.1:3000/api/teddies';
 let teddybearData = "";
 
@@ -9,9 +11,9 @@ fetch(urlBackend).then(response => response.json()).then(data => {
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized);
 }).catch((error) => {
-    res.status(400).json({
+    response.status(400).json({
         error: error
-    })
+    });
 });
 
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"))
