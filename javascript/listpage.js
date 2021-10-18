@@ -37,7 +37,7 @@ function listCreator(currentIndex) {
     imageCreator.src = teddybearData_deserialized[currentIndex].imageUrl;
     // Creates the link
     let linkCreator = document.createElement("a");
-    linkCreator.href = "../html/singleproduct1.html";
+    linkCreator.href = "./html/singleproduct1.html";
     linkCreator.setAttribute("class", "container_teddybear--buycue");
     linkCreator.setAttribute("id", "product" + (currentIndex + 1));
     // Creates the text
