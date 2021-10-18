@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 let urlBackend = 'http://127.0.0.1:3000/api/teddies';
 let teddybearData = "";
 
