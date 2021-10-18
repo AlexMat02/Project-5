@@ -25,15 +25,22 @@ body.products = products;
 
 const urlPOSTRequest = "http://127.0.0.1:3000/api/teddies/order";
 
-fetch(urlPOSTRequest, {method : 'POST',headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  }, body: JSON.stringify(body)})
-    .then(response => response.json()).then(data => {
-    htmlUserId.textContent = data.orderId;
-});
+fetch(urlPOSTRequest, {method : 'POST',headers: {'Content-Type': 'application/json;charset=utf-8'}, body: JSON.stringify(body)})
+    .then(response => response.json())
+    .then(data => {htmlUserId.textContent = data.orderId})
+    .catch((error) => {
+        res.status(400).json({
+            error: error
+        })
+    });
 
 // Send each product id to the backend.
 for (let i = 0; i < products.length; i++){
     let urlBackendId = `http://127.0.0.1:3000/api/teddies/${products[i]}`;
-    fetch(urlBackendId).then(response => response.json()).then(data => {});
+    fetch(urlBackendId).then(response => response.json()).then(data => {})
+    .catch((error) => {
+        res.status(400).json({
+            error: error
+        });
+    })
 };
