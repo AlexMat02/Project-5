@@ -1,4 +1,4 @@
-let urlBackend = 'http://127.0.0.1:3000/api/teddies';
+let urlBackend = '​http://localhost:3000/api/teddies';
 let teddybearData = "";
 
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
@@ -9,7 +9,6 @@ fetch(urlBackend)
     .then(data => {  teddybearData = data
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized)
-    console.log("found out");
     }).catch((error) => {
     console.log(error);
 });
@@ -38,7 +37,7 @@ function listCreator(currentIndex) {
     imageCreator.src = teddybearData_deserialized[currentIndex].imageUrl;
     // Creates the link
     let linkCreator = document.createElement("a");
-    linkCreator.href = "/html/singleproduct1.html";
+    linkCreator.href = "../html/singleproduct1.html";
     linkCreator.setAttribute("class", "container_teddybear--buycue");
     linkCreator.setAttribute("id", "product" + (currentIndex + 1));
     // Creates the text
