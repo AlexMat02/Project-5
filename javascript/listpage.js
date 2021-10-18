@@ -8,6 +8,10 @@ fetch(urlBackend).then(response => response.json()).then(data => {
     teddybearData = data
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized);
+}).catch((error) => {
+    res.status(400).json({
+        error: error
+    })
 });
 
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"))
