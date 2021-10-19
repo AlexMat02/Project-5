@@ -10,7 +10,7 @@ fetch(urlBackend)
     let teddybearData_serialized = JSON.stringify(teddybearData);
     localStorage.setItem("backendData", teddybearData_serialized)
     }).catch((error) => {
-    console.log(error);
+    console.log(JSON.parse(error));
 });
 
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"))
@@ -34,7 +34,7 @@ function listCreator(currentIndex) {
     // Creates the img
     let imageCreator = document.createElement("img");
     imageCreator.setAttribute("class", "container_teddybear--img");
-    imageCreator.src = teddybearData_deserialized[currentIndex].imageUrl;
+    imageCreator.src = "." + teddybearData_deserialized[currentIndex].imageUrl;
     // Creates the link
     let linkCreator = document.createElement("a");
     linkCreator.href = "./html/singleproduct1.html";
