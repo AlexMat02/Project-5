@@ -100,13 +100,6 @@ if (listOfCartItems !== null) {
             productNumber.textContent = "Quantity : " + listOfCartItems[y].numberOfItem;
         }
     }
-} else {
-    for (let i = teddybearData_deserialized[productDisplay_deserialized].colors.length; i > 0; i--) {
-        let newLi = document.createElement("option")
-        newLi.textContent = teddybearData_deserialized[productDisplay_deserialized].colors[i - 1];
-        newLi.setAttribute("class", "product-card-cartpage-ul")
-        productSelect.appendChild(newLi);
-    };
 }
 
 // This creates an object, if it already exists it just adds the number

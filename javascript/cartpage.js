@@ -264,9 +264,10 @@ function emailVerification (textValue) {
         // All of this is done to follow the correct email format.
         if (emailArray[a] == "@" && emailArray[a - 1] && emailArray[a + 1] != ".") {
             return true
-        };
-    };
-};
+
+        }
+    }        
+
 
 let formCounter = 0;
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
