@@ -1,4 +1,4 @@
-let urlBackend = '​http://localhost:3000/api/teddies';
+const urlBackend = "http://localhost:3000/api/teddies";
 let teddybearData = "";
 
 let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
@@ -7,10 +7,10 @@ let listOfCartItems = JSON.parse(localStorage.getItem("listOfCartItems"));
 fetch(urlBackend)
     .then(response => response.json())
     .then(data => {  teddybearData = data
-    let teddybearData_serialized = JSON.stringify(teddybearData);
-    localStorage.setItem("backendData", teddybearData_serialized);
+        let teddybearData_serialized = JSON.stringify(teddybearData)
+        localStorage.setItem("backendData", teddybearData_serialized)
 }).catch((error) => {
-    console.log("Error: " + error);
+    console.log("Error: " , JSON.stringify(error));
 });
 
 let teddybearData_deserialized = JSON.parse(localStorage.getItem("backendData"))

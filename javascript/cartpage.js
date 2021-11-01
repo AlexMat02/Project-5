@@ -266,8 +266,8 @@ function emailVerification (textValue) {
             return true
 
         }
-    }        
-
+    }
+}         
 
 let formCounter = 0;
 // When the user press the 'submitButton' the form that the user filled will be send to the backend
